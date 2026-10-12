@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="color-scheme" content="light"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex"/>
+<title>CS Teaching Guide — プログラミング成長ルート(G9 → G12)</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#f5f7fa;--surface:#fff;--surface2:#eef1f6;--accent:#3b5bdb;--c0478:#0ca678;--cas:#3b5bdb;--ca2:#7c3aed;--warn:#d97706;--bad:#e03572;--text:#1a1a2e;--muted:#5c6880;--border:#dce1ec;--info-bg:#eef2ff;--info-bd:#c5d0f8;--warn-bg:#fff7ed;--warn-bd:#fed7aa;--warn-tx:#7c3003;--good-bg:#dcfce7;--good-bd:#bbf7d0;--good-tx:#14532d;--hero:linear-gradient(155deg,#eef2ff,#f5f7fa 60%,#dcfce7);--nav:rgba(245,247,250,.95);}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{overflow-wrap:anywhere;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+nav{position:sticky;top:0;z-index:100;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.nav-brand{font-weight:800;font-size:.95rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:.9rem;flex-wrap:wrap;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.78rem;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700;}
+.hero{padding:3.2rem 1rem 2.2rem;background:var(--hero);text-align:center;}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--c0478);display:inline-block;margin-bottom:.7rem;border:1px solid var(--good-bd);background:var(--surface);padding:.25rem .9rem;border-radius:2rem;}
+h1{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;line-height:1.3;margin-bottom:.8rem;}
+.lead{color:var(--muted);max-width:720px;margin:0 auto;font-size:.97rem;}
+.sec{max-width:1060px;margin:0 auto;padding:2.4rem 1rem;}
+.sec h2{font-size:1.45rem;font-weight:800;margin-bottom:.4rem;}
+.sec h3{font-size:1.05rem;font-weight:800;margin:1.4rem 0 .5rem;}
+.sub{color:var(--muted);margin-bottom:1.4rem;font-size:.9rem;}
+.divider{height:1px;background:var(--border);margin:0 1rem;}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;padding:1.3rem;margin-bottom:1rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+.grid .card{margin-bottom:0;}
+.box{border-radius:.8rem;padding:1rem 1.2rem;font-size:.9rem;margin:1rem 0;border:1.5px solid;}
+.info{background:var(--info-bg);border-color:var(--info-bd);}
+.warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-tx);}
+.good{background:var(--good-bg);border-color:var(--good-bd);color:var(--good-tx);}
+.box strong{font-weight:800;}
+ul.bl{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin:.4rem 0;}
+ul.bl li{position:relative;padding-left:1.1rem;font-size:.9rem;color:var(--muted);}
+ul.bl li::before{content:'▸';color:var(--accent);position:absolute;left:0;}
+ul.bl li strong{color:var(--text);}
+.tbl-wrap{overflow-x:auto;background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;margin:1rem 0;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px;}
+th{text-align:left;padding:.65rem .85rem;color:var(--accent);border-bottom:2px solid var(--border);background:var(--surface2);white-space:nowrap;}
+td{padding:.65rem .85rem;border-bottom:1px solid var(--border);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.tag{display:inline-block;font-size:.7rem;font-weight:800;padding:.1rem .6rem;border-radius:2rem;color:#fff;vertical-align:middle;}
+.t0478{background:var(--c0478);color:#06281f;} .tas{background:var(--cas);color:#fff;} .ta2{background:var(--ca2);color:#fff;}
+.src{font-size:.74rem;color:var(--muted);font-style:italic;}
+.neg{color:var(--bad);font-weight:700;} .pos{color:var(--c0478);font-weight:700;}
+.bar{display:flex;height:30px;border-radius:.6rem;overflow:hidden;border:1.5px solid var(--border);margin:.5rem 0 .2rem;font-size:.75rem;font-weight:700;color:#fff;}
+.bar span{display:flex;align-items:center;justify-content:center;min-width:2rem;}
+.pager{max-width:1060px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.pager a{padding:.6rem 1.1rem;border:1.5px solid var(--border);border-radius:.7rem;text-decoration:none;color:var(--accent);background:var(--surface);font-size:.88rem;font-weight:700;}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:2rem 1rem;}
+code{background:var(--surface2);padding:.05rem .4rem;border-radius:.3rem;font-size:.85em;}
+@media(max-width:600px){.hero{padding:2.4rem 1rem 1.6rem;}.sec{padding:1.8rem 1rem;}}
+</style>
+</head>
+<body>
+<nav><a class="nav-brand" href="index.html">💻 CS Teaching Guide</a><div class="nav-links"><a href="index.html">ホーム</a><a href="00_diagnosis_ja.html">00 現状診断</a><a href="01_astar_blueprint_ja.html">01 A*の設計図</a><a href="02_igcse_0478_ja.html">02 IGCSE</a><a href="03_as_9618_ja.html">03 AS</a><a href="04_a2_9618_ja.html">04 A2</a><a href="05_lesson_design_ja.html">05 授業設計</a><a href="06_exam_technique_ja.html">06 試験技術</a><a href="07_programming_path_ja.html" class=active>07 プログラミング</a><a href="08_assessment_ja.html">08 評価</a></div></nav>
+<header class="hero"><span class="eyebrow">07 ・ pseudocode から P4 まで</span><h1>プログラミング成長ルート(G9 → G12)</h1><p class="lead">A Level の半分を占めるプログラミングを、G9 から段階的に積み上げる設計。</p></header>
+
+<section class="sec">
+<h2>🧭 1. なぜプログラミングが中心か</h2>
+<div class="box good"><strong>配点から見ると:</strong> A Level の AO3(40%)は P2 と P4 だけから来る(01)。IGCSE は P2 の AO2(60%)。
+いずれの試験でも、Examiner が最も多く失点を指摘しているのは pseudocode の構文と設計(00 の原因③)。</div>
+<div class="tbl-wrap"><table>
+<tr><th>学年</th><th>試験で求められること</th><th>使う言語</th></tr>
+<tr><td><span class="tag t0478">G9</span></td><td>基礎(変数・selection・iteration)</td><td>pseudocode(CIE 形式)</td></tr>
+<tr><td><span class="tag t0478">G10</span></td><td>P2:short-answer は pseudocode のみ。15点シナリオは pseudocode または Python / VB / Java</td><td>pseudocode(紙) + Python(15点問題と実行確認)</td></tr>
+<tr><td><span class="tag tas">G11</span></td><td>P2:pseudocode で解答(2時間)</td><td>pseudocode(紙) + Python(動作確認)</td></tr>
+<tr><td><span class="tag ta2">G12</span></td><td>P4:Java / VB / Python(console)で実装、テストの証拠を提出</td><td>Python など1言語に固定(練習量を集中させる)</td></tr>
+</table></div>
+<p class="src">出典:0478 シラバス(4章 Details of the assessment)、9618 シラバス(Assessment overview)。</p>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🪜 2. 成長の段階(G9 → G12)</h2>
+<div class="tbl-wrap"><table>
+<tr><th>段階</th><th>できること</th><th>練習の形</th><th>主な学年</th></tr>
+<tr><td>1</td><td>順次・selection・iteration を CIE pseudocode で書く</td><td>紙で10行以内の課題。構文チェックリストで自己採点</td><td>G9</td></tr>
+<tr><td>2</td><td>trace table で自分のコードを検証する</td><td>書いた後に必ず trace。バグを見つけて直す</td><td>G9–G10</td></tr>
+<tr><td>3</td><td>配列・file handling・library routines</td><td>データを読む/検索する/集計する課題</td><td>G10–G11</td></tr>
+<tr><td>4</td><td>手続き・関数、設計(ループの選択、引数、型)</td><td>「書く前に設計メモ」を課題の一部にする</td><td>G10–G11</td></tr>
+<tr><td>5</td><td>2D array、ADT(stack・queue・linked list)</td><td>実装 + テストデータを自分で決める</td><td>G11–G12</td></tr>
+<tr><td>6</td><td>OOP(クラス、カプセル化、継承、ポリモーフィズム)</td><td>クラス設計 → 実装 → テスト</td><td>G12</td></tr>
+<tr><td>7</td><td>再帰、例外処理、ファイル処理</td><td>P4 の過去問(80分)</td><td>G12</td></tr>
+<tr><td>8</td><td>P4 の本番形式(2h30)、evidence document</td><td>時間通りに通しで解き、体裁チェック</td><td>G12</td></tr>
+</table></div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🧪 3. 設計・テスト・デバッグの指導</h2>
+<div class="grid">
+<div class="card"><h3>書く前の設計メモ(2分)</h3><ul class="bl">
+<li>入力・出力・使う変数(型)は?</li>
+<li>ループは count-controlled か conditional か?</li>
+<li>IF の連続か CASE か?</li>
+<li>関数・手続きの引数と戻り値は?</li></ul>
+<span class="src">9618 ER Jun 2025 P23 Key messages</span></div>
+<div class="card"><h3>テストデータ</h3><ul class="bl">
+<li>通常・境界・不正の3種を選ぶ</li>
+<li>問題文のテストデータの条件(rubric)を読んでから選ぶ</li>
+<li>「State a value」には変数名ではなく<strong>値</strong>を書く</li>
+<li>最大・最小を求める処理は、<strong>最初の値が最大/最小の場合</strong>もテスト</li></ul>
+<span class="src">9618 ER Jun 2025 P21 / Nov 2025 P41</span></div>
+<div class="card"><h3>デバッグの手順</h3><ul class="bl">
+<li>エラーメッセージを読み、行を特定</li>
+<li>期待値と実際の値を trace table で比較</li>
+<li>構文ミス(END 文・引用符・予約語)から先に確認</li>
+<li>1つ直すごとに実行</li></ul></div>
+</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🛠 4. 既存の練習教材との対応</h2>
+<div class="tbl-wrap"><table>
+<tr><th>段階</th><th>使う教材(あなたの Drive)</th></tr>
+<tr><td>1–2(基礎・trace)</td><td>G10CS/Pseudocode_basic、G11CS/Pseudocode_practice、Pseudocode_IDE、Loop_training</td></tr>
+<tr><td>3–4(配列・file・関数)</td><td>G11CS/G11_Python _practice、IGCSE_Python_Practice_Topics_1_to_23.ipynb(G11CS)、0478 Topical practice papers Chapter 8</td></tr>
+<tr><td>5–7(ADT・OOP・再帰)</td><td>G12CS/OOP_practice、Algorithm HTML、9618 Topical practice papers Chapter 19–20</td></tr>
+<tr><td>8(P4 本番)</td><td>Past papers: 9618 Paper 4、Candidate answer(ECR P4)</td></tr>
+</table></div>
+<div class="box info"><strong>週あたりの目安:</strong> AS・A2 は週1コマ(80分)をプログラミングに固定(03・04)。IGCSE は40分の節の一部と80分の後半で、紙の pseudocode を毎週。</div>
+</section>
+
+<div class="pager"><a href="06_exam_technique_ja.html">← 06 試験技術</a><a href="08_assessment_ja.html">08 評価 →</a></div>
+<footer>IGCSE 0478 / Cambridge International AS &amp; A Level 9618 — 教員専用ガイド。根拠はCambridge公式のシラバス・Examiner Report・Example Candidate Responses。</footer>
+</body>
+</html>

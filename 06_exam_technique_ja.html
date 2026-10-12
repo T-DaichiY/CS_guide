@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="color-scheme" content="light"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex"/>
+<title>CS Teaching Guide — 試験技術(Command word・解答フレーム・構文)</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#f5f7fa;--surface:#fff;--surface2:#eef1f6;--accent:#3b5bdb;--c0478:#0ca678;--cas:#3b5bdb;--ca2:#7c3aed;--warn:#d97706;--bad:#e03572;--text:#1a1a2e;--muted:#5c6880;--border:#dce1ec;--info-bg:#eef2ff;--info-bd:#c5d0f8;--warn-bg:#fff7ed;--warn-bd:#fed7aa;--warn-tx:#7c3003;--good-bg:#dcfce7;--good-bd:#bbf7d0;--good-tx:#14532d;--hero:linear-gradient(155deg,#eef2ff,#f5f7fa 60%,#dcfce7);--nav:rgba(245,247,250,.95);}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{overflow-wrap:anywhere;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+nav{position:sticky;top:0;z-index:100;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.nav-brand{font-weight:800;font-size:.95rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:.9rem;flex-wrap:wrap;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.78rem;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700;}
+.hero{padding:3.2rem 1rem 2.2rem;background:var(--hero);text-align:center;}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--c0478);display:inline-block;margin-bottom:.7rem;border:1px solid var(--good-bd);background:var(--surface);padding:.25rem .9rem;border-radius:2rem;}
+h1{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;line-height:1.3;margin-bottom:.8rem;}
+.lead{color:var(--muted);max-width:720px;margin:0 auto;font-size:.97rem;}
+.sec{max-width:1060px;margin:0 auto;padding:2.4rem 1rem;}
+.sec h2{font-size:1.45rem;font-weight:800;margin-bottom:.4rem;}
+.sec h3{font-size:1.05rem;font-weight:800;margin:1.4rem 0 .5rem;}
+.sub{color:var(--muted);margin-bottom:1.4rem;font-size:.9rem;}
+.divider{height:1px;background:var(--border);margin:0 1rem;}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;padding:1.3rem;margin-bottom:1rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+.grid .card{margin-bottom:0;}
+.box{border-radius:.8rem;padding:1rem 1.2rem;font-size:.9rem;margin:1rem 0;border:1.5px solid;}
+.info{background:var(--info-bg);border-color:var(--info-bd);}
+.warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-tx);}
+.good{background:var(--good-bg);border-color:var(--good-bd);color:var(--good-tx);}
+.box strong{font-weight:800;}
+ul.bl{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin:.4rem 0;}
+ul.bl li{position:relative;padding-left:1.1rem;font-size:.9rem;color:var(--muted);}
+ul.bl li::before{content:'▸';color:var(--accent);position:absolute;left:0;}
+ul.bl li strong{color:var(--text);}
+.tbl-wrap{overflow-x:auto;background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;margin:1rem 0;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px;}
+th{text-align:left;padding:.65rem .85rem;color:var(--accent);border-bottom:2px solid var(--border);background:var(--surface2);white-space:nowrap;}
+td{padding:.65rem .85rem;border-bottom:1px solid var(--border);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.tag{display:inline-block;font-size:.7rem;font-weight:800;padding:.1rem .6rem;border-radius:2rem;color:#fff;vertical-align:middle;}
+.t0478{background:var(--c0478);color:#06281f;} .tas{background:var(--cas);color:#fff;} .ta2{background:var(--ca2);color:#fff;}
+.src{font-size:.74rem;color:var(--muted);font-style:italic;}
+.neg{color:var(--bad);font-weight:700;} .pos{color:var(--c0478);font-weight:700;}
+.bar{display:flex;height:30px;border-radius:.6rem;overflow:hidden;border:1.5px solid var(--border);margin:.5rem 0 .2rem;font-size:.75rem;font-weight:700;color:#fff;}
+.bar span{display:flex;align-items:center;justify-content:center;min-width:2rem;}
+.pager{max-width:1060px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.pager a{padding:.6rem 1.1rem;border:1.5px solid var(--border);border-radius:.7rem;text-decoration:none;color:var(--accent);background:var(--surface);font-size:.88rem;font-weight:700;}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:2rem 1rem;}
+code{background:var(--surface2);padding:.05rem .4rem;border-radius:.3rem;font-size:.85em;}
+@media(max-width:600px){.hero{padding:2.4rem 1rem 1.6rem;}.sec{padding:1.8rem 1rem;}}
+</style>
+</head>
+<body>
+<nav><a class="nav-brand" href="index.html">💻 CS Teaching Guide</a><div class="nav-links"><a href="index.html">ホーム</a><a href="00_diagnosis_ja.html">00 現状診断</a><a href="01_astar_blueprint_ja.html">01 A*の設計図</a><a href="02_igcse_0478_ja.html">02 IGCSE</a><a href="03_as_9618_ja.html">03 AS</a><a href="04_a2_9618_ja.html">04 A2</a><a href="05_lesson_design_ja.html">05 授業設計</a><a href="06_exam_technique_ja.html" class=active>06 試験技術</a><a href="07_programming_path_ja.html">07 プログラミング</a><a href="08_assessment_ja.html">08 評価</a></div></nav>
+<header class="hero"><span class="eyebrow">06 ・ 書き方で点が変わる</span><h1>試験技術(Command word・解答フレーム・構文)</h1><p class="lead">command word の定義、問題タイプ別の解答フレーム、pseudocode 構文チェックリスト、mark scheme の読み方。</p></header>
+
+<section class="sec">
+<h2>🔑 1. Command word(Cambridge の定義)</h2>
+<p class="sub">定義は 0478・9618 シラバス「Command words」から。<strong>explain は describe より多く書く</strong>ことを Examiner が毎回指摘している。</p>
+<div class="tbl-wrap"><table>
+<tr><th>Command word</th><th>Cambridge の定義</th><th>書き方(教員向けの指導)</th></tr>
+<tr><td><strong>State / Give / Identify</strong></td><td>State: express in clear terms / Give: produce an answer from a given source or recall / Identify: name/select/recognise</td><td>短く正確に。説明は不要。点数 = 書くポイントの数。</td></tr>
+<tr><td><strong>Define</strong></td><td>give precise meaning</td><td>用語の正確な定義。例だけでは不可。</td></tr>
+<tr><td><strong>Describe</strong></td><td>state the points of a topic / give characteristics and main features</td><td>特徴・主な点を挙げる。「何であるか」。</td></tr>
+<tr><td><strong>Explain</strong></td><td>set out purposes or reasons / make the relationships between things clear / say why and/or how and support with relevant evidence</td><td><strong>「なぜ/どのように」まで。</strong>1点の主張 + 理由(展開)の形。Examiner Report の趣旨:explain は「どのように」、describe は「何を」。</td></tr>
+<tr><td><strong>Outline</strong></td><td>set out the main points</td><td>要点だけ。詳細は不要。</td></tr>
+<tr><td><strong>Compare</strong></td><td>identify/comment on similarities and/or differences</td><td><strong>比較の各文に、両方の項目を入れる</strong>(「A は…、一方 B は…」)。</td></tr>
+<tr><td><strong>Suggest</strong></td><td>apply knowledge and understanding to situations where there are a range of valid responses</td><td>context(シナリオ)に結びつけた妥当な案。</td></tr>
+<tr><td><strong>Calculate / Show (that)</strong></td><td>work out from given facts... / provide structured evidence that leads to a given result</td><td><strong>working を必ず書く</strong>(部分点)。単位の指定に従う。</td></tr>
+<tr><td><strong>Evaluate / Discuss / Justify</strong><br>(AO3 の問い)</td><td>Evaluate: judge the quality... / Discuss: write about issues in depth in a structured way / Justify: support a case with evidence/argument</td><td>利点・欠点 + <strong>判断(結論)</strong>を書く。一文の結論と理由で締める。</td></tr>
+</table></div>
+<div class="box warn"><strong>Examiner が指摘する command word の落とし穴:</strong>
+「identify」に説明を書く(時間の無駄)/「explain」に describe(点が取れない)/「purpose」「characteristics」「advantages」は<em>違う答え</em>を求める。
+<span class="src">0478 ER Mar 2025 P12, Mar 2026 P12 / 9618 ER Jun 2025 P31–33</span></div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🧩 2. 問題タイプ別の解答フレーム</h2>
+<div class="grid">
+<div class="card"><h3>explain(2〜3点)</h3><p class="sub"><strong>主張 → because → 結果</strong>。1点の主張に、理由か展開を必ず付ける。同じ内容の言い換えで2点は取れない。<span class="src">9618 ER Jun 2025 P11–13</span></p></div>
+<div class="card"><h3>context 問題</h3><p class="sub">問題文の名詞(sensors の種類、tractor、検索エンジン)を<strong>答えの中の各文</strong>に入れる。「generic な説明 + 1文の context」は不可。<span class="src">0478 ER Mar 2025 P12, Jun 2026 P11–13</span></p></div>
+<div class="card"><h3>比較</h3><p class="sub">各文に両方の項目。DRAM と SRAM のように、片方しか書かない答えは点がもらえない。<span class="src">9618 ER Nov 2025 P11 Q6(c)</span></p></div>
+<div class="card"><h3>3択から選ぶ・根拠を述べる</h3><p class="sub">選んだ理由だけでなく、<strong>他の2つを除外する理由</strong>も書く(IPv4/IPv6/無効の判定など)。<span class="src">9618 ER Nov 2025 P11 Q7(b)</span></p></div>
+<div class="card"><h3>計算・変換</h3><p class="sub">working を書く(部分点)。2進の加減算は2進のまま(10進に直すと点がない)。桁数の指定には先頭の 0 を書く。<span class="src">9618 ER Nov 2025 P11 Q1 / 0478 ER Jun 2026 P11</span></p></div>
+<div class="card"><h3>trace table</h3><p class="sub">全ての変数を列に。実行順に1行ずつ。ループの各反復を省略しない。0478 では trace table が弱いと指摘。<span class="src">0478 ER Jun 2024 P21</span></p></div>
+<div class="card"><h3>図(flowchart・linked list・ER・ネットワーク)</h3><p class="sub">矢印には矢じり、全ての経路を終端(STOP/null)へ。図には<strong>注釈</strong>(矢印が何を表すか)を付ける。<span class="src">0478 ER Mar 2026 P12 / Jun 2026 P21–23 / 9618 ER Jun 2025 P31 Q4(a)</span></p></div>
+<div class="card"><h3>K-map</h3><p class="sub">元の式の項の数 = 1の個数。ループは1だけ、個数は2の累乗(2・4・8)。グループにならない1も最終式に必要。<span class="src">9618 ER Nov 2025 P31 Q6</span></p></div>
+</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>✅ 3. CIE pseudocode 構文チェックリスト</h2>
+<p class="sub">答案を出す前に、生徒が自分で確認する。0478 は<strong>シラバス 4章で定義</strong>された形式、9618 は Cambridge の pseudocode guide に従う。失点例は Examiner Report から。</p>
+<div class="tbl-wrap"><table>
+<tr><th>項目</th><th>正しい形</th><th>よくある誤り</th></tr>
+<tr><td>代入</td><td><code>Counter ← 0</code></td><td>= を使う、結果を変数に代入しない(UCASE・SUBSTRING)</td></tr>
+<tr><td>宣言</td><td><code>DECLARE Counter : INTEGER</code><br><code>DECLARE Names : ARRAY[1:30] OF STRING</code></td><td>データ型の誤り(FLOAT ではなく REAL)、配列の範囲(要素50個なら 1:50)</td></tr>
+<tr><td>比較</td><td><code>&lt;&gt;</code>(≠)、<code>&gt;=</code></td><td><code>!=</code>、<code>=&gt;</code></td></tr>
+<tr><td>IF</td><td><code>IF … THEN … ELSE … ENDIF</code></td><td>ENDIF の欠落</td></tr>
+<tr><td>ループ</td><td><code>FOR i ← 1 TO 10 … NEXT i</code><br><code>WHILE … DO … ENDWHILE</code><br><code>REPEAT … UNTIL …</code></td><td>NEXT・ENDWHILE・UNTIL の欠落。FOR は回数が決まっている場合に使う</td></tr>
+<tr><td>手続き・関数</td><td><code>PROCEDURE … ENDPROCEDURE</code><br><code>FUNCTION … RETURNS INTEGER … ENDFUNCTION</code></td><td>END の欠落。関数で RETURN せず OUTPUT する</td></tr>
+<tr><td>ファイル</td><td><code>OPENFILE "A.txt" FOR READ</code><br><code>READFILE "A.txt", LineOfText</code><br><code>CLOSEFILE "A.txt"</code></td><td>ファイル名の引用符がない、<code>CLOSE</code> と書く、CLOSEFILE・EOF() にファイル名がない、mode の誤り。<br>9618 では mode に APPEND・RANDOM もある(pseudocode guide で確認)</td></tr>
+<tr><td>識別子</td><td>意味のある名前</td><td>予約語(String、LENGTH、MONTH、TODAY)を使う</td></tr>
+<tr><td>関数・演算子</td><td>insert の関数を、insert の形で</td><td>RAND・INT・LEFT・MID の使い方の誤り。DIV・MOD は演算子で library routine ではない</td></tr>
+</table></div>
+<p class="src">出典:0478 シラバス 2026–2028 4章(pseudocode)、0478 ER Jun 2026 P21–23、9618 ER Jun 2025 P22–23。9618 の file mode は syllabus 外の pseudocode guide を参照すること。</p>
+<div class="box good"><strong>使い方:</strong> 印刷して机に貼る。答案を出す前に「END 文・file・予約語・型」の4項目を声に出して確認する習慣を最初の週から作る。</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>📖 4. Mark scheme の読み方を教える</h2>
+<ul class="bl">
+<li><strong>1点 = 1つの独立したポイント。</strong>同じ意味で言い換えた2文は1点(9618 ER Jun 2025 P11–13)。</li>
+<li><strong>除外された答え</strong>に注意。「他の2つ」と書いてあれば、例示されたものは点にならない。</li>
+<li>mark scheme の <strong>"AO"・アクセプト表現</strong>を毎回見て、自分の答えがどの表現にあたるかを確認する。</li>
+<li>working の部分点(follow-through や benefit-of-doubt)があることを確認する(9618 ECR で言及)。</li>
+<li>pseudocode は、ロジックと構文の両方に点があることを示す(構文ミスで点を失う)。</li>
+</ul>
+</section>
+
+<div class="pager"><a href="05_lesson_design_ja.html">← 05 授業設計</a><a href="07_programming_path_ja.html">07 プログラミング →</a></div>
+<footer>IGCSE 0478 / Cambridge International AS &amp; A Level 9618 — 教員専用ガイド。根拠はCambridge公式のシラバス・Examiner Report・Example Candidate Responses。</footer>
+</body>
+</html>

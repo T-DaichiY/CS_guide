@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="color-scheme" content="light"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex"/>
+<title>CS Teaching Guide — AS Computer Science 9618(G11)</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#f5f7fa;--surface:#fff;--surface2:#eef1f6;--accent:#3b5bdb;--c0478:#0ca678;--cas:#3b5bdb;--ca2:#7c3aed;--warn:#d97706;--bad:#e03572;--text:#1a1a2e;--muted:#5c6880;--border:#dce1ec;--info-bg:#eef2ff;--info-bd:#c5d0f8;--warn-bg:#fff7ed;--warn-bd:#fed7aa;--warn-tx:#7c3003;--good-bg:#dcfce7;--good-bd:#bbf7d0;--good-tx:#14532d;--hero:linear-gradient(155deg,#eef2ff,#f5f7fa 60%,#dcfce7);--nav:rgba(245,247,250,.95);}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{overflow-wrap:anywhere;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+nav{position:sticky;top:0;z-index:100;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.nav-brand{font-weight:800;font-size:.95rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:.9rem;flex-wrap:wrap;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.78rem;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700;}
+.hero{padding:3.2rem 1rem 2.2rem;background:var(--hero);text-align:center;}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--c0478);display:inline-block;margin-bottom:.7rem;border:1px solid var(--good-bd);background:var(--surface);padding:.25rem .9rem;border-radius:2rem;}
+h1{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;line-height:1.3;margin-bottom:.8rem;}
+.lead{color:var(--muted);max-width:720px;margin:0 auto;font-size:.97rem;}
+.sec{max-width:1060px;margin:0 auto;padding:2.4rem 1rem;}
+.sec h2{font-size:1.45rem;font-weight:800;margin-bottom:.4rem;}
+.sec h3{font-size:1.05rem;font-weight:800;margin:1.4rem 0 .5rem;}
+.sub{color:var(--muted);margin-bottom:1.4rem;font-size:.9rem;}
+.divider{height:1px;background:var(--border);margin:0 1rem;}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;padding:1.3rem;margin-bottom:1rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+.grid .card{margin-bottom:0;}
+.box{border-radius:.8rem;padding:1rem 1.2rem;font-size:.9rem;margin:1rem 0;border:1.5px solid;}
+.info{background:var(--info-bg);border-color:var(--info-bd);}
+.warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-tx);}
+.good{background:var(--good-bg);border-color:var(--good-bd);color:var(--good-tx);}
+.box strong{font-weight:800;}
+ul.bl{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin:.4rem 0;}
+ul.bl li{position:relative;padding-left:1.1rem;font-size:.9rem;color:var(--muted);}
+ul.bl li::before{content:'▸';color:var(--accent);position:absolute;left:0;}
+ul.bl li strong{color:var(--text);}
+.tbl-wrap{overflow-x:auto;background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;margin:1rem 0;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px;}
+th{text-align:left;padding:.65rem .85rem;color:var(--accent);border-bottom:2px solid var(--border);background:var(--surface2);white-space:nowrap;}
+td{padding:.65rem .85rem;border-bottom:1px solid var(--border);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.tag{display:inline-block;font-size:.7rem;font-weight:800;padding:.1rem .6rem;border-radius:2rem;color:#fff;vertical-align:middle;}
+.t0478{background:var(--c0478);color:#06281f;} .tas{background:var(--cas);color:#fff;} .ta2{background:var(--ca2);color:#fff;}
+.src{font-size:.74rem;color:var(--muted);font-style:italic;}
+.neg{color:var(--bad);font-weight:700;} .pos{color:var(--c0478);font-weight:700;}
+.bar{display:flex;height:30px;border-radius:.6rem;overflow:hidden;border:1.5px solid var(--border);margin:.5rem 0 .2rem;font-size:.75rem;font-weight:700;color:#fff;}
+.bar span{display:flex;align-items:center;justify-content:center;min-width:2rem;}
+.pager{max-width:1060px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.pager a{padding:.6rem 1.1rem;border:1.5px solid var(--border);border-radius:.7rem;text-decoration:none;color:var(--accent);background:var(--surface);font-size:.88rem;font-weight:700;}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:2rem 1rem;}
+code{background:var(--surface2);padding:.05rem .4rem;border-radius:.3rem;font-size:.85em;}
+@media(max-width:600px){.hero{padding:2.4rem 1rem 1.6rem;}.sec{padding:1.8rem 1rem;}}
+</style>
+</head>
+<body>
+<nav><a class="nav-brand" href="index.html">💻 CS Teaching Guide</a><div class="nav-links"><a href="index.html">ホーム</a><a href="00_diagnosis_ja.html">00 現状診断</a><a href="01_astar_blueprint_ja.html">01 A*の設計図</a><a href="02_igcse_0478_ja.html">02 IGCSE</a><a href="03_as_9618_ja.html" class=active>03 AS</a><a href="04_a2_9618_ja.html">04 A2</a><a href="05_lesson_design_ja.html">05 授業設計</a><a href="06_exam_technique_ja.html">06 試験技術</a><a href="07_programming_path_ja.html">07 プログラミング</a><a href="08_assessment_ja.html">08 評価</a></div></nav>
+<header class="hero"><span class="eyebrow">03 ・ <span class='tag tas'>AS</span></span><h1>AS Computer Science 9618(G11)</h1><p class="lead">約52時間の不足を前提にした、理論とプログラミングを並行する年間設計。Paper 1・Paper 2 の頻出失点。</p></header>
+
+<section class="sec">
+<h2>🧭 1. コースの全体像(G11・AS)</h2>
+<div class="tbl-wrap"><table>
+<tr><th>試験</th><th>範囲</th><th>形式</th><th>AS への比重</th><th>AO</th></tr>
+<tr><td>Paper 1 <span class="tag tas">理論</span></td><td>Sec.1–8:情報表現、通信、ハードウェア、プロセッサ、システムソフトウェア、セキュリティ、倫理、データベース</td><td>1h30・75点</td><td>50%</td><td>AO1 60 / AO2 40</td></tr>
+<tr><td>Paper 2 <span class="tag tas">問題解決</span></td><td>Sec.9–12:アルゴリズム設計、データ型・構造、プログラミング、ソフトウェア開発</td><td>2h・75点・pseudocode で解答</td><td>50%</td><td>AO2 40 / AO3 60</td></tr>
+</table></div>
+<div class="box warn"><strong>時間の問題:</strong> G11 は週240分で年間約128時間。Cambridge 想定は約180時間のため<strong>約52時間(29%)不足</strong>。
+同じ進め方では終わらない。<strong>初回の説明を事前学習に移し、授業は演習とフィードバック</strong>にする。(<a href="05_lesson_design_ja.html">05</a>)</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🗓 2. 年間ペーシング(提案):毎週「理論2 + プログラミング1」</h2>
+<p class="sub">P2 のプログラミングは練習量が点数を決めるため、<strong>最初の週から毎週1コマ(80分)をプログラミングに固定</strong>する。理論は残り2コマで進める。</p>
+<div class="tbl-wrap"><table>
+<tr><th>期間</th><th>理論(週2コマ)</th><th>プログラミング(週1コマ)</th></tr>
+<tr><td>週1–6</td><td>Sec.1 情報表現(約3週)、Sec.2 通信(約2週)、Sec.3 ハードウェア(約1週)</td><td>Sec.9 アルゴリズム設計、Sec.11 プログラミングの基礎:変数・selection・iteration(CIE pseudocode)</td></tr>
+<tr><td>週7–14</td><td>Sec.3 続き、Sec.4 プロセッサ(アセンブリ・レジスタ、約4週)、Sec.5 システムソフトウェア(約2週)</td><td>Sec.10 データ型・配列、Sec.11 手続き・関数</td></tr>
+<tr><td>週15–20</td><td>Sec.6 セキュリティ、Sec.7 倫理、Sec.8 データベース(約3週:ER図・正規化・SQL)</td><td>Sec.11 file handling、Sec.12 ソフトウェア開発(テスト・保守)</td></tr>
+<tr><td>週21–26</td><td>Paper 1 の過去問演習(弱点分類 → 補習)</td><td>Paper 2 の過去問演習(1問ずつ、手書き)</td></tr>
+<tr><td>週27–32</td><td colspan="2">総復習・mock・Examiner Report の指摘を踏まえた直し</td></tr>
+</table></div>
+<p class="src">週数は目安。Sec.4 は assembly の命令が多く、最も時間が足りないため、先に事前学習を課す。</p>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>📚 3. Paper 1:Examiner Report が示す失点と打ち手</h2>
+<p class="sub">出典は 9618 ER Nov 2025 P11(特記以外)。年度が違う場合は併記。</p>
+<div class="tbl-wrap"><table>
+<tr><th>Section</th><th>よくある失点</th><th>打ち手</th></tr>
+<tr><td><strong>1 情報表現</strong></td>
+<td>・2進 → 10進 → 16進と遠回りして計算ミス(2進 → 16進は直接変換できる)<br>・BCD を 8ビット2進と取り違える(0110 1100)<br>・2の補数で負の符号を忘れる(補数法で 68 を求めた後に「−」を付けない)<br>・<strong>2進の加減算を10進に直して計算すると点がもらえない</strong><br>・オーバーフローの説明で「容量が足りない」とだけ書く(ビット数への言及が必要)</td>
+<td>・2進のまま計算する練習を毎回(10進変換は検算にだけ使う)<br>・オーバーフローは「結果が○ビットを超え、収まらない」と書かせる</td></tr>
+<tr><td><strong>8 データベース</strong></td>
+<td>・多対多を結合テーブルで2つの一対多に分ける ER 図で、関係の向きが逆<br>・正規形の説明で「1NF・2NF である」とだけ書く(意味の説明が必要)<br>・SQL:DELETE FROM の誤り、FROM に不要な2つ目のテーブル、「完了」の条件の漏れ<br>・database・table・attribute の用語を誤用<br>・参照整合性:主キーと外部キーの依存関係を逆に説明、「この DB にどう当てはまるか」に答えない</td>
+<td>・ER 図は認められた記法で描く練習<br>・参照整合性は「このテーブルのこの列は、あのテーブルのこの列に存在する値のみ」と具体的に書かせる</td></tr>
+<tr><td><strong>3 ハードウェア(論理)</strong></td>
+<td>・XOR ゲートの記号、NOT・NAND の丸が不明瞭<br>・真理値表の読み取りが弱い</td>
+<td>・ゲート記号を毎回描く。真理値表から式を作る練習</td></tr>
+<tr><td><strong>4 プロセッサ(アセンブリ)</strong></td>
+<td>・binary shift の問いに XOR 命令を書く<br>・XOR &amp;12(アドレス)と XOR #12(即値)を取り違える<br>・OR 100(アドレスの値)と OR #100 を取り違える</td>
+<td>・アドレス指定(直接・即値)を、アキュムレータの値を毎回書き出して追う</td></tr>
+<tr><td><strong>5 システムソフトウェア</strong></td>
+<td>・メモリ管理・ハードウェア管理などの<strong>指定された2つのタスク</strong>ではなく、他のタスクを列挙<br>・OS の役割と、アンチウイルス・ファイアウォールの役割を混同<br>・デバイスドライバーを曖昧に述べる<br>・library routine の欠点を述べても、2点目の「展開」が書けない</td>
+<td>・「タスク名 → 何をするか → 何の役に立つか」の3点セットで書く</td></tr>
+<tr><td><strong>4 レジスタ</strong></td>
+<td>・data・address・instruction の用語を誤用<br>・レジスタ名を繰り返すだけ(例:「CIR は現在の命令を保持する」だけでは点にならない。decode・execute の記述が必要)<br>・2つを比較する問題で、片方の記述しか書かない(DRAM と SRAM)<br>・マルチコアの欠点(過熱、コア間通信による遅延)は書けるが、説明が不足しがち</td>
+<td>・比較問題は「A は…、一方 B は…」の形を型にする</td></tr>
+<tr><td><strong>2 通信</strong></td>
+<td>・static IP「変わらない」、public IP「公開されている」のように不十分<br>・不正な IP アドレスの根拠が曖昧(IPv4 でも IPv6 でもない理由を<strong>両方</strong>書く必要がある)</td>
+<td>・3択から選ぶ問題は、他の2つを除外する理由を書く</td></tr>
+</table></div>
+<p class="src">出典:9618 ER Nov 2025 P11 Q1–Q7。Jun 2025 P11–13 の Key messages も同様の指摘(除外された答え、同一内容の言い換えは1点)。</p>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>💻 4. Paper 2:プログラミング・問題解決</h2>
+<p class="sub"><strong>AS の50%、AO3 が60%。</strong> 練習量が点数に直結する。CIE pseudocode の習熟が最優先。</p>
+<div class="grid">
+<div class="card"><h3>Examiner が指摘する失点(Jun 2025 P21–23)</h3>
+<ul class="bl">
+<li>procedure/function の END がない、IF の ENDIF、WHILE の ENDWHILE、ループの終端がない</li>
+<li>RAND・INT・LEFT・MID など、<strong>insert にある関数</strong>の使い方の誤り</li>
+<li>2D array の添字の書き方の誤り</li>
+<li>file handling:OPENFILE の mode、CLOSEFILE・EOF() にファイル名がない</li>
+<li>予約語を変数名にする(String、LENGTH、MONTH、TODAY)</li>
+<li>関数が値を RETURN すべきなのに OUTPUT する</li>
+<li>変数の宣言・初期化・データ型がない</li>
+<li>「State a value」に変数名を書く、テストデータの条件を読まない</li>
+</ul>
+<span class="src">9618 ER Jun 2025 P21 / P22 / P23</span></div>
+<div class="card"><h3>設計の習慣(Examiner の提言)</h3>
+<ul class="bl">
+<li><strong>書く前に設計:</strong>count-controlled か conditional か、IF の連続か CASE か、引数は何か、データ型は何か</li>
+<li><strong>identifier table</strong> で変数を文書化する(変数の用途を記録)。コメントや配列ではない。<span class="src">9618 ECR P2 (2024) Q1(c)</span></li>
+<li>要件を「コーディングできる手順」に書き下す練習(Q4(a) は改善したと評価)</li>
+<li>pseudocode は<strong>手で書き、構文チェックリストで自己採点</strong></li>
+</ul></div>
+</div>
+<div class="box info"><strong>週1コマのプログラミング(80分)の型:</strong>
+10分 前回の振り返り(構文クイズ)→ 15分 新しい構造の例 → 40分 課題(紙で pseudocode → PC で確認)→ 15分 trace table とレビュー。
+詳細は <a href="05_lesson_design_ja.html">05</a>・<a href="07_programming_path_ja.html">07</a>。</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🧰 5. 使える既存教材</h2>
+<div class="grid">
+<div class="card"><h3>G11CS</h3><ul class="bl"><li>Study_Guide_HTML(章ごとの学習ガイド)</li><li>Pseudocode_IDE / Pseudocode_practice</li><li>Loop_training / G11_Python _practice</li><li>Topical questions(AS の章別問題)</li><li>NotebookLM Content(事前学習用)</li></ul></div>
+<div class="card"><h3>共通</h3><ul class="bl"><li>CS Study Guide (All Grades)(g11)</li><li>Past papers: 9618 Paper 1・Paper 2 の年度別</li><li>Example Candidate Responses(P1・P2)</li></ul></div>
+</div>
+</section>
+
+<div class="pager"><a href="02_igcse_0478_ja.html">← 02 IGCSE</a><a href="04_a2_9618_ja.html">04 A2 →</a></div>
+<footer>IGCSE 0478 / Cambridge International AS &amp; A Level 9618 — 教員専用ガイド。根拠はCambridge公式のシラバス・Examiner Report・Example Candidate Responses。</footer>
+</body>
+</html>

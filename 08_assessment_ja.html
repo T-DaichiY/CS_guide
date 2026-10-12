@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="color-scheme" content="light"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex"/>
+<title>CS Teaching Guide — 評価と介入</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#f5f7fa;--surface:#fff;--surface2:#eef1f6;--accent:#3b5bdb;--c0478:#0ca678;--cas:#3b5bdb;--ca2:#7c3aed;--warn:#d97706;--bad:#e03572;--text:#1a1a2e;--muted:#5c6880;--border:#dce1ec;--info-bg:#eef2ff;--info-bd:#c5d0f8;--warn-bg:#fff7ed;--warn-bd:#fed7aa;--warn-tx:#7c3003;--good-bg:#dcfce7;--good-bd:#bbf7d0;--good-tx:#14532d;--hero:linear-gradient(155deg,#eef2ff,#f5f7fa 60%,#dcfce7);--nav:rgba(245,247,250,.95);}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{overflow-wrap:anywhere;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+nav{position:sticky;top:0;z-index:100;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.nav-brand{font-weight:800;font-size:.95rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:.9rem;flex-wrap:wrap;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.78rem;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700;}
+.hero{padding:3.2rem 1rem 2.2rem;background:var(--hero);text-align:center;}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--c0478);display:inline-block;margin-bottom:.7rem;border:1px solid var(--good-bd);background:var(--surface);padding:.25rem .9rem;border-radius:2rem;}
+h1{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;line-height:1.3;margin-bottom:.8rem;}
+.lead{color:var(--muted);max-width:720px;margin:0 auto;font-size:.97rem;}
+.sec{max-width:1060px;margin:0 auto;padding:2.4rem 1rem;}
+.sec h2{font-size:1.45rem;font-weight:800;margin-bottom:.4rem;}
+.sec h3{font-size:1.05rem;font-weight:800;margin:1.4rem 0 .5rem;}
+.sub{color:var(--muted);margin-bottom:1.4rem;font-size:.9rem;}
+.divider{height:1px;background:var(--border);margin:0 1rem;}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;padding:1.3rem;margin-bottom:1rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+.grid .card{margin-bottom:0;}
+.box{border-radius:.8rem;padding:1rem 1.2rem;font-size:.9rem;margin:1rem 0;border:1.5px solid;}
+.info{background:var(--info-bg);border-color:var(--info-bd);}
+.warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-tx);}
+.good{background:var(--good-bg);border-color:var(--good-bd);color:var(--good-tx);}
+.box strong{font-weight:800;}
+ul.bl{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin:.4rem 0;}
+ul.bl li{position:relative;padding-left:1.1rem;font-size:.9rem;color:var(--muted);}
+ul.bl li::before{content:'▸';color:var(--accent);position:absolute;left:0;}
+ul.bl li strong{color:var(--text);}
+.tbl-wrap{overflow-x:auto;background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;margin:1rem 0;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px;}
+th{text-align:left;padding:.65rem .85rem;color:var(--accent);border-bottom:2px solid var(--border);background:var(--surface2);white-space:nowrap;}
+td{padding:.65rem .85rem;border-bottom:1px solid var(--border);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.tag{display:inline-block;font-size:.7rem;font-weight:800;padding:.1rem .6rem;border-radius:2rem;color:#fff;vertical-align:middle;}
+.t0478{background:var(--c0478);color:#06281f;} .tas{background:var(--cas);color:#fff;} .ta2{background:var(--ca2);color:#fff;}
+.src{font-size:.74rem;color:var(--muted);font-style:italic;}
+.neg{color:var(--bad);font-weight:700;} .pos{color:var(--c0478);font-weight:700;}
+.bar{display:flex;height:30px;border-radius:.6rem;overflow:hidden;border:1.5px solid var(--border);margin:.5rem 0 .2rem;font-size:.75rem;font-weight:700;color:#fff;}
+.bar span{display:flex;align-items:center;justify-content:center;min-width:2rem;}
+.pager{max-width:1060px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.pager a{padding:.6rem 1.1rem;border:1.5px solid var(--border);border-radius:.7rem;text-decoration:none;color:var(--accent);background:var(--surface);font-size:.88rem;font-weight:700;}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:2rem 1rem;}
+code{background:var(--surface2);padding:.05rem .4rem;border-radius:.3rem;font-size:.85em;}
+@media(max-width:600px){.hero{padding:2.4rem 1rem 1.6rem;}.sec{padding:1.8rem 1rem;}}
+</style>
+</head>
+<body>
+<nav><a class="nav-brand" href="index.html">💻 CS Teaching Guide</a><div class="nav-links"><a href="index.html">ホーム</a><a href="00_diagnosis_ja.html">00 現状診断</a><a href="01_astar_blueprint_ja.html">01 A*の設計図</a><a href="02_igcse_0478_ja.html">02 IGCSE</a><a href="03_as_9618_ja.html">03 AS</a><a href="04_a2_9618_ja.html">04 A2</a><a href="05_lesson_design_ja.html">05 授業設計</a><a href="06_exam_technique_ja.html">06 試験技術</a><a href="07_programming_path_ja.html">07 プログラミング</a><a href="08_assessment_ja.html" class=active>08 評価</a></div></nav>
+<header class="hero"><span class="eyebrow">08 ・ 点数ではなく失点の種類を追う</span><h1>評価と介入</h1><p class="lead">評価カレンダー、追跡表、層別の介入、この科目で陥りやすい失敗、学年ごとの年間タイムライン。</p></header>
+
+<section class="sec">
+<h2>📅 1. 評価カレンダー(提案)</h2>
+<div class="tbl-wrap"><table>
+<tr><th>時期</th><th>内容</th><th>目的</th></tr>
+<tr><td>毎週</td><td>出口チケット・引き出しクイズ</td><td>誤りの種類(C・T・S・K・W・X)を集計(05)</td></tr>
+<tr><td>毎月</td><td>過去問のセクションを時間通りに(C 回)</td><td>コンポーネント別の得点率を記録</td></tr>
+<tr><td>学期末</td><td>通しの mock(IGCSE は P1・P2、AS は P1・P2、A2 は P3・P4)</td><td>前学期との比較、介入の対象を決定</td></tr>
+<tr><td>MYE・Prelim・EOY</td><td>学校の試験</td><td>保護者・理事会への報告</td></tr>
+<tr><td>本試験の約6週前</td><td>最終 mock と、Examiner Report の指摘に沿った最終チェック</td><td>構文・context・command word の失点をゼロへ</td></tr>
+</table></div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>📊 2. 追跡表(コピーして使う)</h2>
+<p class="sub">点数だけでなく、<strong>失点の種類</strong>を残す。00 の4原因に直結させる。</p>
+<div class="tbl-wrap"><table>
+<tr><th>生徒</th><th>試験</th><th>得点率</th><th>C(context・command)</th><th>T(用語)</th><th>S(構文)</th><th>K(未習)</th><th>W(working)</th><th>X(重複)</th></tr>
+<tr><td>例:A</td><td>0478 P2 mock</td><td>__ %</td><td>__ 点</td><td>__ 点</td><td>__ 点</td><td>__ 点</td><td>__ 点</td><td>__ 点</td></tr>
+</table></div>
+<ul class="bl">
+<li>最も大きい列が、その生徒の次の課題。クラス全体の集計は、翌週の授業の引き出しクイズに入れる。</li>
+<li>S(構文)の合計が減っているか、学期ごとに確認する(最も改善しやすい)。</li>
+<li>P4 は「evidence document の体裁チェック」(03・04)を別に記録。</li>
+</ul>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>⭐ 3. 層別の介入</h2>
+<div class="grid">
+<div class="card"><h3>A* 圏(得点率の上位層)</h3><ul class="bl">
+<li>AO3 の問い(evaluate・discuss・justify)の結論の書き方</li>
+<li>P4:evidence document の完璧な体裁、テストの網羅性</li>
+<li>0478:15点問題で、シナリオの全項目を満たす</li>
+<li>残る失点は S(構文)・X(重複)・W(working)が多い → チェックリストで消す</li></ul></div>
+<div class="card"><h3>ボーダー層(A/B を狙う)</h3><ul class="bl">
+<li>最も大きい失点列(C か S)を1つだけ決めて集中的に直す</li>
+<li>command word 別の書き方フレーム(06)を毎週</li>
+<li>プログラミング:紙の pseudocode を週2回</li></ul></div>
+<div class="card"><h3>下位層(pass 圏)</h3><ul class="bl">
+<li>K(未習)を特定し、事前学習の確認を個別に</li>
+<li>確実に取れる領域を先に:2進変換、論理回路、SQL の基本</li>
+<li>短い pseudocode 課題を毎週(段階1–2)</li></ul></div>
+</div>
+<div class="box warn"><strong>grade threshold について:</strong> A*・A の境界点は、Cambridge がシリーズごとに公開する。層の分け方(上位・ボーダー・下位)は、直近 mock の得点率と、公開された grade threshold を見ながら決める。</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>⚠️ 4. この科目で陥りやすい失敗</h2>
+<ul class="bl">
+<li><strong>説明で時間を使い切る:</strong>AS・A2 は時間が足りない。初回の説明を事前学習に移す(05)。</li>
+<li><strong>プログラミングを理論の後に回す:</strong>練習量が足りなくなる。最初の週から毎週1コマ(03・04)。</li>
+<li><strong>過去問を直前にまとめて解く:</strong>弱点が分かっても直す時間がない。月1回の C 回(05)。</li>
+<li><strong>PC で書き、紙で書かない:</strong>0478・9618 P2 は紙の pseudocode。構文を意識しない癖がつく。</li>
+<li><strong>mark scheme を答え合わせにだけ使う:</strong>表現の取り方・点の分け方を学ぶ道具にする(06)。</li>
+<li><strong>G9 の内容を G10 で復習しない:</strong>Paper 1 の範囲は約1年前に終わっている(02)。</li>
+<li><strong>P4 の evidence document を直前に教える:</strong>毎回の課題で作法を固定する(04)。</li>
+</ul>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🗓 5. 学年ごとの年間タイムライン</h2>
+<div class="tbl-wrap"><table>
+<tr><th>学期</th><th><span class="tag t0478">G9</span></th><th><span class="tag t0478">G10</span></th><th><span class="tag tas">G11</span></th><th><span class="tag ta2">G12</span></th></tr>
+<tr><td>第1学期</td><td>Topic 1–2、pseudocode 基礎</td><td>Topic 7(アルゴリズム)、trace</td><td>Sec.1–2 + 基礎プログラミング</td><td>Sec.19–20(再帰・OOP)</td></tr>
+<tr><td>第2学期</td><td>Topic 3–4</td><td>Topic 8(プログラミング)、15点問題</td><td>Sec.3–5 + 配列・関数</td><td>Sec.13–16 + P4 過去問</td></tr>
+<tr><td>第3学期</td><td>Topic 5–6、G9 の mini test</td><td>Topic 9–10、総復習・過去問</td><td>Sec.6–8 + file handling、過去問、mock</td><td>Sec.17–18、復習・mock(5月まで)</td></tr>
+</table></div>
+<p class="src">各学期の週数は学校暦に合わせて調整する。詳細は 02・03・04。</p>
+<div class="box info"><strong>理事会への報告に使う数字:</strong> コンポーネント別の得点率(学期ごと)、S(構文)の失点の推移、事前学習の実施率、P4 の evidence 体裁チェックの通過率。
+最初の学期にベースライン(現状)を取り、以降の学期と比較する。</div>
+</section>
+
+<div class="pager"><a href="07_programming_path_ja.html">← 07 プログラミング</a><span></span></div>
+<footer>IGCSE 0478 / Cambridge International AS &amp; A Level 9618 — 教員専用ガイド。根拠はCambridge公式のシラバス・Examiner Report・Example Candidate Responses。</footer>
+</body>
+</html>

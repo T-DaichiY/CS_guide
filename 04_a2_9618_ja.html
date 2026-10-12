@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="color-scheme" content="light"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex"/>
+<title>CS Teaching Guide — A Level Computer Science 9618(G12)</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#f5f7fa;--surface:#fff;--surface2:#eef1f6;--accent:#3b5bdb;--c0478:#0ca678;--cas:#3b5bdb;--ca2:#7c3aed;--warn:#d97706;--bad:#e03572;--text:#1a1a2e;--muted:#5c6880;--border:#dce1ec;--info-bg:#eef2ff;--info-bd:#c5d0f8;--warn-bg:#fff7ed;--warn-bd:#fed7aa;--warn-tx:#7c3003;--good-bg:#dcfce7;--good-bd:#bbf7d0;--good-tx:#14532d;--hero:linear-gradient(155deg,#eef2ff,#f5f7fa 60%,#dcfce7);--nav:rgba(245,247,250,.95);}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{overflow-wrap:anywhere;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+nav{position:sticky;top:0;z-index:100;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.nav-brand{font-weight:800;font-size:.95rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:.9rem;flex-wrap:wrap;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.78rem;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700;}
+.hero{padding:3.2rem 1rem 2.2rem;background:var(--hero);text-align:center;}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--c0478);display:inline-block;margin-bottom:.7rem;border:1px solid var(--good-bd);background:var(--surface);padding:.25rem .9rem;border-radius:2rem;}
+h1{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;line-height:1.3;margin-bottom:.8rem;}
+.lead{color:var(--muted);max-width:720px;margin:0 auto;font-size:.97rem;}
+.sec{max-width:1060px;margin:0 auto;padding:2.4rem 1rem;}
+.sec h2{font-size:1.45rem;font-weight:800;margin-bottom:.4rem;}
+.sec h3{font-size:1.05rem;font-weight:800;margin:1.4rem 0 .5rem;}
+.sub{color:var(--muted);margin-bottom:1.4rem;font-size:.9rem;}
+.divider{height:1px;background:var(--border);margin:0 1rem;}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;padding:1.3rem;margin-bottom:1rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+.grid .card{margin-bottom:0;}
+.box{border-radius:.8rem;padding:1rem 1.2rem;font-size:.9rem;margin:1rem 0;border:1.5px solid;}
+.info{background:var(--info-bg);border-color:var(--info-bd);}
+.warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-tx);}
+.good{background:var(--good-bg);border-color:var(--good-bd);color:var(--good-tx);}
+.box strong{font-weight:800;}
+ul.bl{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin:.4rem 0;}
+ul.bl li{position:relative;padding-left:1.1rem;font-size:.9rem;color:var(--muted);}
+ul.bl li::before{content:'▸';color:var(--accent);position:absolute;left:0;}
+ul.bl li strong{color:var(--text);}
+.tbl-wrap{overflow-x:auto;background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;margin:1rem 0;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px;}
+th{text-align:left;padding:.65rem .85rem;color:var(--accent);border-bottom:2px solid var(--border);background:var(--surface2);white-space:nowrap;}
+td{padding:.65rem .85rem;border-bottom:1px solid var(--border);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.tag{display:inline-block;font-size:.7rem;font-weight:800;padding:.1rem .6rem;border-radius:2rem;color:#fff;vertical-align:middle;}
+.t0478{background:var(--c0478);color:#06281f;} .tas{background:var(--cas);color:#fff;} .ta2{background:var(--ca2);color:#fff;}
+.src{font-size:.74rem;color:var(--muted);font-style:italic;}
+.neg{color:var(--bad);font-weight:700;} .pos{color:var(--c0478);font-weight:700;}
+.bar{display:flex;height:30px;border-radius:.6rem;overflow:hidden;border:1.5px solid var(--border);margin:.5rem 0 .2rem;font-size:.75rem;font-weight:700;color:#fff;}
+.bar span{display:flex;align-items:center;justify-content:center;min-width:2rem;}
+.pager{max-width:1060px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.pager a{padding:.6rem 1.1rem;border:1.5px solid var(--border);border-radius:.7rem;text-decoration:none;color:var(--accent);background:var(--surface);font-size:.88rem;font-weight:700;}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:2rem 1rem;}
+code{background:var(--surface2);padding:.05rem .4rem;border-radius:.3rem;font-size:.85em;}
+@media(max-width:600px){.hero{padding:2.4rem 1rem 1.6rem;}.sec{padding:1.8rem 1rem;}}
+</style>
+</head>
+<body>
+<nav><a class="nav-brand" href="index.html">💻 CS Teaching Guide</a><div class="nav-links"><a href="index.html">ホーム</a><a href="00_diagnosis_ja.html">00 現状診断</a><a href="01_astar_blueprint_ja.html">01 A*の設計図</a><a href="02_igcse_0478_ja.html">02 IGCSE</a><a href="03_as_9618_ja.html">03 AS</a><a href="04_a2_9618_ja.html" class=active>04 A2</a><a href="05_lesson_design_ja.html">05 授業設計</a><a href="06_exam_technique_ja.html">06 試験技術</a><a href="07_programming_path_ja.html">07 プログラミング</a><a href="08_assessment_ja.html">08 評価</a></div></nav>
+<header class="hero"><span class="eyebrow">04 ・ <span class='tag ta2'>A2</span></span><h1>A Level Computer Science 9618(G12)</h1><p class="lead">26週で Paper 3・Paper 4 に備える設計。Sec.19–20 を先に教え、実技の練習を毎週確保する。</p></header>
+
+<section class="sec">
+<h2>🧭 1. コースの全体像(G12・A Level 後半)</h2>
+<div class="tbl-wrap"><table>
+<tr><th>試験</th><th>範囲</th><th>形式</th><th>A Level への比重</th><th>AO</th></tr>
+<tr><td>Paper 3 <span class="tag ta2">発展理論</span></td><td>Sec.13–20</td><td>1h30・75点</td><td>25%</td><td>AO1 60 / AO2 40</td></tr>
+<tr><td>Paper 4 <span class="tag ta2">実技</span></td><td>Sec.19–20(low-level と declarative programming を除く)</td><td>2h30・75点。Java / VB / Python(console)。PC・インターネットなし。コードとテスト証拠を提出</td><td>25%</td><td>AO3 100</td></tr>
+</table></div>
+<div class="box warn"><strong>時間の問題:</strong> 5月の試験まで約26週、週240分で約104時間。A Level 後半の想定(約180時間)の58%。
+<strong>一番大きな不足</strong>があるため、Paper 3・Paper 4 の両方に使われる Sec.19–20 を最初に教える。</div>
+<div class="box info"><strong>Paper 4 は AO3 が100%:</strong> 実際にプログラムを作り、テストし、証拠を提出する。理論が分かっていても、<strong>練習量と evidence document の作法</strong>がなければ点にならない。</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🗓 2. 年間ペーシング(提案):26週、Sec.19–20 を先に</h2>
+<div class="tbl-wrap"><table>
+<tr><th>週</th><th>理論(週2コマ)</th><th>プログラミング / P4(週1コマ)</th></tr>
+<tr><td>1–8</td><td><strong>Sec.19 Computational thinking</strong>(アルゴリズム、ADT、再帰)約4週<br><strong>Sec.20 Further programming</strong>(OOP、ファイル処理、例外処理)約4週</td><td>stack・queue・linked list・binary tree の実装、OOP のクラス設計、ファイル処理。evidence document を毎回作成</td></tr>
+<tr><td>9–12</td><td>Sec.13 Data representation(ユーザー定義型、ファイル編成、浮動小数点)約2週<br>Sec.14 Communication(プロトコル、circuit/packet switching)約2週</td><td>P4 の過去問1問を2回に分けて解く</td></tr>
+<tr><td>13–17</td><td>Sec.15 Hardware(parallel processing、仮想マシン、Boolean algebra、K-map)約2週<br>Sec.16 System software(OS、translation)約3週</td><td>P4 の過去問(80分で1セット)</td></tr>
+<tr><td>18–20</td><td>Sec.17 Security 約2週、Sec.18 AI 約1週</td><td>P4 の過去問(通しで 2h30)</td></tr>
+<tr><td>21–26</td><td colspan="2"><strong>復習・mock:</strong> P3 過去問(弱点分類 → 補習)/ P4 過去問を時間通りに/ Examiner Report の指摘で最終チェック</td></tr>
+</table></div>
+<p class="src">この順序(Sec.19・20 を最初)は提案。通常の教科書順(13 → 20)にする場合、P4 の練習時間が最後に集中し、時間が足りなくなる。</p>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>📚 3. Paper 3:トピック別の失点と打ち手</h2>
+<p class="sub">出典は 9618 ER Nov 2025 P31、Jun 2025 P31(特記)。</p>
+<div class="tbl-wrap"><table>
+<tr><th>Section</th><th>よくある失点</th><th>打ち手</th></tr>
+<tr><td><strong>13 データ表現</strong></td>
+<td>・TYPE 宣言:TYPE を書かない/= を書かない/括弧がない/各項目に引用符を付ける<br>・レコード型の変数名にデータ型の名前を使う<br>・DECLARE の位置・データ型の誤り(フィールドごとに必要)<br>・<strong>浮動小数点:</strong>指数の符号(−7 を +7 とする)。正規化の手順の途中の working を書かない(working は部分点になる)<br>
+<span class="src">Nov 2025 P31 Q1–2 / Jun 2025 P31 Q1–2</span></td>
+<td>・published pseudocode guide の TYPE・DECLARE を暗記ではなく手で書く<br>・浮動小数点は「仮数 → 正規化 → 指数」を毎回3行で書く</td></tr>
+<tr><td><strong>14 通信</strong></td>
+<td>・プロトコルの説明が「標準を決める」止まり(互換性まで展開が必要)<br>・「SMTP はメールを送る」だけでは点にならない(コンピュータからメールサーバーへ、が必要)<br>・TCP/IP:層の目的ではなく、どの層に渡すかを書く<br>・packet switching と circuit switching の混同、利点・欠点を書く(求められていない)<br>
+<span class="src">Nov 2025 P31 Q3 / Jun 2025 P31 Q3</span></td>
+<td>・プロトコルは「何を/どこからどこへ/何のために」の3点で書く</td></tr>
+<tr><td><strong>15 ハードウェア</strong></td>
+<td>・<strong>K-map:</strong>1だけを入れて0を書かない/1の個数が式の項数と一致しない/ループが2の累乗の個数になっていない/グループにならない1つの項も最終式に必要<br><span class="src">Nov 2025 P31 Q6 / Jun 2025 P31 Q5</span></td>
+<td>・K-map の自己検算:1の個数 = 元の式の項の数</td></tr>
+<tr><td><strong>16 システムソフトウェア</strong></td>
+<td>・scheduling:shortest remaining time の説明で pre-emptive の指摘がない<br>・OS がハードウェアの複雑さをユーザーから隠す方法(UI、デバイスドライバー)の展開不足<br>・interpreter の説明に compile の内容を書く<br>
+<span class="src">Nov 2025 P31 Q4 / Jun 2025 P31 Q6, Q8</span></td>
+<td>・interpreter と compiler は「どの単位で / いつ / 何を出力するか」の表で比較</td></tr>
+<tr><td><strong>17 セキュリティ</strong></td>
+<td>・デジタル証明書:「公開鍵」「デジタル署名」と書くだけで<strong>誰の</strong>かを書かない/「CA」とだけ書く<br>・証明書が署名の検証に必要な理由(公開鍵を提供し、署名に使った秘密鍵を検証する → なりすまし防止)の3点目まで書く<br>
+<span class="src">Nov 2025 P31 Q5 / Jun 2025 P31 Q9</span></td>
+<td>・「誰の・何を・なぜ」の3点セットを型にする</td></tr>
+<tr><td><strong>18 AI</strong></td>
+<td>・Deep learning:ANN の構造と、隠れたパターンの見つけ方、大規模データに強いことまで<br>
+<span class="src">Nov 2025 P31 Q7</span>
+(A* と Dijkstra は多くの候補者が正答)</td>
+<td>・ANN は層・重み・学習の3点を図付きで説明</td></tr>
+<tr><td><strong>19 Computational thinking</strong></td>
+<td>・linked list の図:ノードの位置、矢印の矢じり、ポインタの出発点、null ポインタのラベル<br>・再帰:general case と base case の両方<br>・BNF:再帰を含めた最終答え(|を先頭・末尾に付けない)<br>
+<span class="src">Jun 2025 P31 Q4, Q7</span></td>
+<td>・図は「ポインタボックスから矢印が出る」ルールを、紙で何度も描く</td></tr>
+<tr><td><strong>20 Further programming</strong></td>
+<td>・(P4 の項を参照)</td><td>・OOP は P4 に直結するため、クラスを書く練習を最優先</td></tr>
+</table></div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>💻 4. Paper 4:実技を A* にする</h2>
+<p class="sub">9618 ER Nov 2025 P41(question comments)と Jun 2025 P41–43(Key messages)から。</p>
+<div class="grid">
+<div class="card"><h3>プログラミング上の失点</h3>
+<ul class="bl">
+<li><strong>stack:</strong>top-of-stack が「最後の要素」を指す設計なのに、満杯判定を &gt; 29 とする(正しくは = 29)。push で増やす前に代入する</li>
+<li>pop が decrement 後の要素を返す(正しくは decrement 前の値)</li>
+<li>空のとき文字列 '−999' を返す(整数でなければならない)</li>
+<li>push の戻り値を確認せず、満杯でループを抜けない。「Stack full」の出力がない</li>
+<li>pop を使わずに配列を直接たどる。loop 条件と本体で pop を2回呼ぶ</li>
+<li>最大・最小を求める際、if/elseif の構造で最初の値が最大/最小の場合に見逃す → <strong>テストで確認</strong></li>
+<li><strong>OOP:</strong>コンストラクタを書かない(__int__ と書く)/private を public にする/get メソッドに引数/Python の self がない/インスタンスを変数に保存せず上書き/配列を空で初期化せず NumberTrains を0にしない/満杯判定で等しい場合を含めない</li>
+<li>入力をファイル名にして .txt を付けない</li>
+<li>1次元配列を null で初期化しない</li>
+</ul>
+<span class="src">9618 ER Nov 2025 P41 Q1–2 / ECR P4 (2024)</span></div>
+<div class="card"><h3>evidence document の作法(毎回確認)</h3>
+<ul class="bl">
+<li><strong>提出は1人1ファイル:</strong>evidence document にコードのコピーとスクリーンショットを貼る</li>
+<li><strong>白地に黒字。</strong>色付きの文字・ハイライトなし(IDE の画面は白字に黒背景でも可だが、色付き文字は避ける)</li>
+<li><strong>indentation を保つ</strong>(Python では必須)。他の言語でも保つ</li>
+<li>各小問の<strong>正しい欄</strong>に貼る。header に centre number と candidate number</li>
+<li>スクリーンショットは<strong>テスト結果のみ</strong>。全ての入出力が見える(切れていない)ことを確認</li>
+<li>変数名は意味のあるものにする</li>
+</ul>
+<span class="src">9618 ER Jun 2025 P41–43 Key messages</span></div>
+</div>
+<div class="box good"><strong>授業での型(週1コマ・80分):</strong> 最初の4週は短い課題(stack、queue、クラス1つ)。以降は過去問の1小問ずつ → 全体を時間通りに。
+<strong>毎回 evidence document を提出させ</strong>、チェックリストで自己採点する。</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🧰 5. 使える既存教材</h2>
+<div class="grid">
+<div class="card"><h3>G12CS</h3><ul class="bl"><li>9618 Topical practice papers:Chapter 13–20(Paper 3、2024–2026)</li><li>OOP_practice / Algorithm HTML</li><li>CS Study Guide / Study Guide App</li><li>Candidate answer(ECR P1–P4、Learner Guide)</li><li>Examinar report(Nov 2022、Jun 2024、Jun 2025)</li><li>NotebookLM Content</li></ul></div>
+<div class="card"><h3>共通</h3><ul class="bl"><li>Past papers:9618 Paper 3・Paper 4 の年度別</li><li>Textbook:Chapter 13–20</li></ul></div>
+</div>
+</section>
+
+<div class="pager"><a href="03_as_9618_ja.html">← 03 AS</a><a href="05_lesson_design_ja.html">05 授業設計 →</a></div>
+<footer>IGCSE 0478 / Cambridge International AS &amp; A Level 9618 — 教員専用ガイド。根拠はCambridge公式のシラバス・Examiner Report・Example Candidate Responses。</footer>
+</body>
+</html>

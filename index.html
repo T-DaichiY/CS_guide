@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="color-scheme" content="light"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex"/>
+<title>CS Teaching Guide — Computer Science 指導ガイド</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#f5f7fa;--surface:#fff;--surface2:#eef1f6;--accent:#3b5bdb;--c0478:#0ca678;--cas:#3b5bdb;--ca2:#7c3aed;--warn:#d97706;--bad:#e03572;--text:#1a1a2e;--muted:#5c6880;--border:#dce1ec;--info-bg:#eef2ff;--info-bd:#c5d0f8;--warn-bg:#fff7ed;--warn-bd:#fed7aa;--warn-tx:#7c3003;--good-bg:#dcfce7;--good-bd:#bbf7d0;--good-tx:#14532d;--hero:linear-gradient(155deg,#eef2ff,#f5f7fa 60%,#dcfce7);--nav:rgba(245,247,250,.95);}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{overflow-wrap:anywhere;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+nav{position:sticky;top:0;z-index:100;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.nav-brand{font-weight:800;font-size:.95rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:.9rem;flex-wrap:wrap;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.78rem;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700;}
+.hero{padding:3.2rem 1rem 2.2rem;background:var(--hero);text-align:center;}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--c0478);display:inline-block;margin-bottom:.7rem;border:1px solid var(--good-bd);background:var(--surface);padding:.25rem .9rem;border-radius:2rem;}
+h1{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;line-height:1.3;margin-bottom:.8rem;}
+.lead{color:var(--muted);max-width:720px;margin:0 auto;font-size:.97rem;}
+.sec{max-width:1060px;margin:0 auto;padding:2.4rem 1rem;}
+.sec h2{font-size:1.45rem;font-weight:800;margin-bottom:.4rem;}
+.sec h3{font-size:1.05rem;font-weight:800;margin:1.4rem 0 .5rem;}
+.sub{color:var(--muted);margin-bottom:1.4rem;font-size:.9rem;}
+.divider{height:1px;background:var(--border);margin:0 1rem;}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;padding:1.3rem;margin-bottom:1rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+.grid .card{margin-bottom:0;}
+.box{border-radius:.8rem;padding:1rem 1.2rem;font-size:.9rem;margin:1rem 0;border:1.5px solid;}
+.info{background:var(--info-bg);border-color:var(--info-bd);}
+.warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-tx);}
+.good{background:var(--good-bg);border-color:var(--good-bd);color:var(--good-tx);}
+.box strong{font-weight:800;}
+ul.bl{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin:.4rem 0;}
+ul.bl li{position:relative;padding-left:1.1rem;font-size:.9rem;color:var(--muted);}
+ul.bl li::before{content:'▸';color:var(--accent);position:absolute;left:0;}
+ul.bl li strong{color:var(--text);}
+.tbl-wrap{overflow-x:auto;background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;margin:1rem 0;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px;}
+th{text-align:left;padding:.65rem .85rem;color:var(--accent);border-bottom:2px solid var(--border);background:var(--surface2);white-space:nowrap;}
+td{padding:.65rem .85rem;border-bottom:1px solid var(--border);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.tag{display:inline-block;font-size:.7rem;font-weight:800;padding:.1rem .6rem;border-radius:2rem;color:#fff;vertical-align:middle;}
+.t0478{background:var(--c0478);color:#06281f;} .tas{background:var(--cas);color:#fff;} .ta2{background:var(--ca2);color:#fff;}
+.src{font-size:.74rem;color:var(--muted);font-style:italic;}
+.neg{color:var(--bad);font-weight:700;} .pos{color:var(--c0478);font-weight:700;}
+.bar{display:flex;height:30px;border-radius:.6rem;overflow:hidden;border:1.5px solid var(--border);margin:.5rem 0 .2rem;font-size:.75rem;font-weight:700;color:#fff;}
+.bar span{display:flex;align-items:center;justify-content:center;min-width:2rem;}
+.pager{max-width:1060px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.pager a{padding:.6rem 1.1rem;border:1.5px solid var(--border);border-radius:.7rem;text-decoration:none;color:var(--accent);background:var(--surface);font-size:.88rem;font-weight:700;}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:2rem 1rem;}
+code{background:var(--surface2);padding:.05rem .4rem;border-radius:.3rem;font-size:.85em;}
+@media(max-width:600px){.hero{padding:2.4rem 1rem 1.6rem;}.sec{padding:1.8rem 1rem;}}
+</style>
+</head>
+<body>
+<nav><a class="nav-brand" href="index.html">💻 CS Teaching Guide</a><div class="nav-links"><a href="index.html" class=active>ホーム</a><a href="00_diagnosis_ja.html">00 現状診断</a><a href="01_astar_blueprint_ja.html">01 A*の設計図</a><a href="02_igcse_0478_ja.html">02 IGCSE</a><a href="03_as_9618_ja.html">03 AS</a><a href="04_a2_9618_ja.html">04 A2</a><a href="05_lesson_design_ja.html">05 授業設計</a><a href="06_exam_technique_ja.html">06 試験技術</a><a href="07_programming_path_ja.html">07 プログラミング</a><a href="08_assessment_ja.html">08 評価</a></div></nav>
+<header class="hero"><span class="eyebrow">IGCSE 0478 ・ AS &amp; A Level 9618 ・ 教員専用</span><h1>Computer Science 指導ガイド</h1><p class="lead">全員を A* に近づけるための、Examiner Report に基づく具体的な指導手順書。</p></header>
+
+<section class="sec">
+<h2>🗺 このガイドの使い方</h2>
+<p class="sub">限られた授業時間の中で、IGCSE 0478 と AS・A Level 9618 の成績を引き上げ、A* を狙える生徒を増やすための教員専用の実践ガイドです。</p>
+<div class="grid">
+  <div class="card"><span class="tag t0478">IGCSE 0478</span><h3>G9–G10</h3>
+    <p class="sub">Paper 1(Topics 1–6)+ Paper 2(Topics 7–10)。各 1h45・75点。週200分(80分×2 + 40分)。</p>
+    <a href="02_igcse_0478_ja.html">→ 02 IGCSE</a></div>
+  <div class="card"><span class="tag tas">AS 9618</span><h3>G11</h3>
+    <p class="sub">Paper 1 理論(Sec.1–8)+ Paper 2 問題解決・プログラミング(Sec.9–12)。週240分(80分×3)。</p>
+    <a href="03_as_9618_ja.html">→ 03 AS</a></div>
+  <div class="card"><span class="tag ta2">A Level 9618</span><h3>G12</h3>
+    <p class="sub">Paper 3 発展理論(Sec.13–20)+ Paper 4 実技(Sec.19–20、2h30)。週240分、試験まで約26週。</p>
+    <a href="04_a2_9618_ja.html">→ 04 A2</a></div>
+</div>
+<div class="box info"><strong>読む順番(おすすめ):</strong> 00 現状診断 → 01 A*の設計図 → 担当コース(02/03/04) → 05 授業設計 → 06 試験技術。
+時間がない場合は <strong>00 と 06</strong> だけでも、失点の大半の原因と対策が分かります。</div>
+<div class="box warn"><strong>このガイドの根拠について:</strong>
+試験時間・配点・AO比率は<strong>シラバス(0478: 2026–2028年版 / 9618: 2026年版)</strong>から、「よくある失点」は<strong>Examiner Report</strong>
+(0478: 2024年3月〜2026年6月 / 9618: 2022年11月〜2025年11月)と<strong>Example Candidate Responses</strong>(9618 P1–P4)から引用しています。
+各記述には出典(例:<span class="src">0478 ER Jun 2025 P22</span>)を付けています。生徒の実際の成績データはまだ反映していません(00ページに差し込み欄あり)。</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>📌 ガイド全体の結論(3行)</h2>
+<ul class="bl">
+<li><strong>失点の主因は「知識不足」より「問われ方への対応不足」。</strong>Examiner Report は毎年、technical terminology・context・command word・CIE pseudocode の4点を繰り返し指摘している。</li>
+<li><strong>A Level の得点の半分(P2+P4)はプログラミング/問題解決。</strong>AO3(最も配点の重い評価観点)はここに集中している。→ 01 参照。</li>
+<li><strong>AS・A2 は授業時間が想定学習時間(GLH)に届かない。</strong>授業は「説明」より「試験演習とフィードバック」に寄せ、説明は授業外に出す設計が必要。→ 00・05 参照。</li>
+</ul>
+</section>
+
+<div class="pager"><span></span><a href="00_diagnosis_ja.html">00 現状診断 →</a></div>
+<footer>IGCSE 0478 / Cambridge International AS &amp; A Level 9618 — 教員専用ガイド。根拠はCambridge公式のシラバス・Examiner Report・Example Candidate Responses。</footer>
+</body>
+</html>

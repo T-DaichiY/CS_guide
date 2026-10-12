@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="color-scheme" content="light"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex"/>
+<title>CS Teaching Guide — IGCSE Computer Science 0478(G9–G10)</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#f5f7fa;--surface:#fff;--surface2:#eef1f6;--accent:#3b5bdb;--c0478:#0ca678;--cas:#3b5bdb;--ca2:#7c3aed;--warn:#d97706;--bad:#e03572;--text:#1a1a2e;--muted:#5c6880;--border:#dce1ec;--info-bg:#eef2ff;--info-bd:#c5d0f8;--warn-bg:#fff7ed;--warn-bd:#fed7aa;--warn-tx:#7c3003;--good-bg:#dcfce7;--good-bd:#bbf7d0;--good-tx:#14532d;--hero:linear-gradient(155deg,#eef2ff,#f5f7fa 60%,#dcfce7);--nav:rgba(245,247,250,.95);}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{overflow-wrap:anywhere;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+nav{position:sticky;top:0;z-index:100;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.nav-brand{font-weight:800;font-size:.95rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:.9rem;flex-wrap:wrap;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.78rem;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700;}
+.hero{padding:3.2rem 1rem 2.2rem;background:var(--hero);text-align:center;}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--c0478);display:inline-block;margin-bottom:.7rem;border:1px solid var(--good-bd);background:var(--surface);padding:.25rem .9rem;border-radius:2rem;}
+h1{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;line-height:1.3;margin-bottom:.8rem;}
+.lead{color:var(--muted);max-width:720px;margin:0 auto;font-size:.97rem;}
+.sec{max-width:1060px;margin:0 auto;padding:2.4rem 1rem;}
+.sec h2{font-size:1.45rem;font-weight:800;margin-bottom:.4rem;}
+.sec h3{font-size:1.05rem;font-weight:800;margin:1.4rem 0 .5rem;}
+.sub{color:var(--muted);margin-bottom:1.4rem;font-size:.9rem;}
+.divider{height:1px;background:var(--border);margin:0 1rem;}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;padding:1.3rem;margin-bottom:1rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+.grid .card{margin-bottom:0;}
+.box{border-radius:.8rem;padding:1rem 1.2rem;font-size:.9rem;margin:1rem 0;border:1.5px solid;}
+.info{background:var(--info-bg);border-color:var(--info-bd);}
+.warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-tx);}
+.good{background:var(--good-bg);border-color:var(--good-bd);color:var(--good-tx);}
+.box strong{font-weight:800;}
+ul.bl{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin:.4rem 0;}
+ul.bl li{position:relative;padding-left:1.1rem;font-size:.9rem;color:var(--muted);}
+ul.bl li::before{content:'▸';color:var(--accent);position:absolute;left:0;}
+ul.bl li strong{color:var(--text);}
+.tbl-wrap{overflow-x:auto;background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;margin:1rem 0;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px;}
+th{text-align:left;padding:.65rem .85rem;color:var(--accent);border-bottom:2px solid var(--border);background:var(--surface2);white-space:nowrap;}
+td{padding:.65rem .85rem;border-bottom:1px solid var(--border);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.tag{display:inline-block;font-size:.7rem;font-weight:800;padding:.1rem .6rem;border-radius:2rem;color:#fff;vertical-align:middle;}
+.t0478{background:var(--c0478);color:#06281f;} .tas{background:var(--cas);color:#fff;} .ta2{background:var(--ca2);color:#fff;}
+.src{font-size:.74rem;color:var(--muted);font-style:italic;}
+.neg{color:var(--bad);font-weight:700;} .pos{color:var(--c0478);font-weight:700;}
+.bar{display:flex;height:30px;border-radius:.6rem;overflow:hidden;border:1.5px solid var(--border);margin:.5rem 0 .2rem;font-size:.75rem;font-weight:700;color:#fff;}
+.bar span{display:flex;align-items:center;justify-content:center;min-width:2rem;}
+.pager{max-width:1060px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.pager a{padding:.6rem 1.1rem;border:1.5px solid var(--border);border-radius:.7rem;text-decoration:none;color:var(--accent);background:var(--surface);font-size:.88rem;font-weight:700;}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:2rem 1rem;}
+code{background:var(--surface2);padding:.05rem .4rem;border-radius:.3rem;font-size:.85em;}
+@media(max-width:600px){.hero{padding:2.4rem 1rem 1.6rem;}.sec{padding:1.8rem 1rem;}}
+</style>
+</head>
+<body>
+<nav><a class="nav-brand" href="index.html">💻 CS Teaching Guide</a><div class="nav-links"><a href="index.html">ホーム</a><a href="00_diagnosis_ja.html">00 現状診断</a><a href="01_astar_blueprint_ja.html">01 A*の設計図</a><a href="02_igcse_0478_ja.html" class=active>02 IGCSE</a><a href="03_as_9618_ja.html">03 AS</a><a href="04_a2_9618_ja.html">04 A2</a><a href="05_lesson_design_ja.html">05 授業設計</a><a href="06_exam_technique_ja.html">06 試験技術</a><a href="07_programming_path_ja.html">07 プログラミング</a><a href="08_assessment_ja.html">08 評価</a></div></nav>
+<header class="hero"><span class="eyebrow">02 ・ <span class='tag t0478'>IGCSE</span></span><h1>IGCSE Computer Science 0478(G9–G10)</h1><p class="lead">2年間のペーシング、Topic 別の指導の核と頻出失点、Paper 2 の15点問題の攻略。</p></header>
+
+<section class="sec">
+<h2>🧭 1. コースの全体像</h2>
+<p class="sub">Paper 1(Topics 1–6)と Paper 2(Topics 7–10)が各50%。両方とも 1h45・75点・電卓不可(0478 シラバス 2026–2028)。</p>
+<div class="box info"><strong>学年の割り当て(教材フォルダの構成から推定):</strong> G9 = Topics 1–6(Paper 1 の範囲)、G10 = Topics 7–10(Paper 2 の範囲)+ 総復習。
+違う場合は下のペーシング表を差し替える。<br>
+<strong>注意:</strong> Paper 1 の範囲は G9 で終わるため、<strong>試験の約1年前に学んだ内容を覚えている必要がある</strong>。G10 の間も G9 の内容を定期的に引き出す(retrieval)仕組みが必須。</div>
+<div class="tbl-wrap"><table>
+<tr><th>時間</th><th>G9</th><th>G10</th></tr>
+<tr><td>週あたり</td><td>80分×2 + 40分(200分)</td><td>同左</td></tr>
+<tr><td>年間(約32週)</td><td>約107時間</td><td>約107時間</td></tr>
+<tr><td>Cambridge 想定(2年間で)</td><td colspan="2">約130時間 → 2年で約213時間あり、<strong>約83時間の余裕</strong></td></tr>
+</table></div>
+<div class="box good"><strong>この余裕をどう使うか:</strong> 新規内容の説明を短くし、余った約80時間を
+<strong>(1) 過去問演習(command word・context の訓練)(2) G10 の P2 プログラミング演習(3) G9 内容の定期復習</strong> に使う。</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🗓 2. 2年間のペーシング(提案)</h2>
+<p class="sub">1年32週・週3コマ(80分×2 + 40分)。週の型は <a href="05_lesson_design_ja.html">05 授業設計</a> を参照。</p>
+<div class="tbl-wrap"><table>
+<tr><th>期間</th><th>内容</th><th>週数</th><th>メモ</th></tr>
+<tr><td>G9 前半</td><td>Topic 1 Data representation</td><td>約7週</td><td>2進・16進・シフト・2の補数・容量計算。<strong>計算は必ず working を書く</strong>習慣を最初に作る</td></tr>
+<tr><td>G9 前半</td><td>Topic 2 Data transmission、Topic 3 Hardware</td><td>約8週</td><td>FDE サイクルのレジスタは図で理解させ、説明は用語で書かせる</td></tr>
+<tr><td>G9 後半</td><td>Topic 4 Software、Topic 5 Internet、Topic 6 Automated &amp; emerging technologies</td><td>約10週</td><td>context 付きの記述問題(self-driving tractor、search engine など)を毎週1問</td></tr>
+<tr><td>G9 後半</td><td>Topic 7 の導入(pseudocode 基礎)</td><td>約7週(並行)</td><td>週1回(40分)は pseudocode を紙で書く。CIE 形式の構文を最初から固定する</td></tr>
+<tr><td>G10 前半</td><td>Topic 7 Algorithm design、Topic 8 Programming</td><td>約16週</td><td>trace table、flowchart、配列、file handling、library routines。最も時間をかける</td></tr>
+<tr><td>G10 前半</td><td>Topic 9 Databases、Topic 10 Boolean logic</td><td>約8週</td><td>SQL と論理回路は「満点を取れる」領域。ミスをゼロにする</td></tr>
+<tr><td>G10 後半</td><td>総復習・過去問(P1/P2)・15点シナリオ</td><td>約8週</td><td>弱点分類(00ページの4原因)ごとに補習</td></tr>
+</table></div>
+<p class="src">合計:G9 約32週、G10 約32週。各週数は目安で、実際の学校暦に合わせて調整する。</p>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>📚 3. トピック別:教える核・頻出失点・打ち手</h2>
+<p class="sub">失点はすべて Examiner Report の記述。直近(2026年6月)を中心に引用。</p>
+<div class="tbl-wrap"><table>
+<tr><th>Topic</th><th>教える核</th><th>頻出失点(Examiner Report)</th><th>打ち手</th></tr>
+<tr><td><strong>1 Data representation</strong><br><span class="tag t0478">P1</span></td><td>2進・10進・16進の変換、2進加算、論理シフト、2の補数、テキスト・音・画像、容量計算、圧縮</td>
+<td>・データ量の換算で 1024 でなく 1000 で割る(3 KiB を 3.072 とする)<br>・8ビット/12ビットにするための先頭の 0 を書かない<br>・オーバーフローの計算で繰り上がりの working を書かない<br>・「16進数は少ないメモリで保存できる」「2進数で表せる最小の整数は1」という誤概念<br>
+<span class="src">0478 ER Jun 2026 P11–13 / Mar 2024 P12 / Mar 2025 P12</span></td>
+<td>・単位は KiB/MiB…の「ladder」を教室に掲示し、毎回 ÷1024 を声に出して確認<br>・桁数指定の問題は「桁数を先に書く」ルール<br>・誤概念を「正しい?間違い?」クイズで単元の最初に出す</td></tr>
+<tr><td><strong>2 Data transmission</strong><br><span class="tag t0478">P1</span></td><td>パケット、シリアル/パラレル、エラー検出、暗号化</td>
+<td>・シリアル通信を「1本の線で1ビットずつ送る」と書けず、1ビットずつ送る点に触れない<br>・「長距離に強い」と書くだけで、問題の context に結びつけない<br>
+<span class="src">0478 ER Jun 2026 P11–13</span>
+(パケットの理解は良好:<span class="src">Mar 2025 P12</span>)</td>
+<td>・「特徴 + context」の2文セットで書かせる(例:〜なので、このシナリオでは…)</td></tr>
+<tr><td><strong>3 Hardware</strong><br><span class="tag t0478">P1</span></td><td>CPU とレジスタ、FDE サイクル、入出力装置、センサー、記憶装置</td>
+<td>・FDE の最初に使うレジスタを MDR とする(メモリ上の「アドレス」と「命令」の混同)<br>・CIR は decode 段階だけで使われることを理解していない<br>・オンスクリーンキーボード(ソフトウェア)を入力装置とする/ヘッドホンを内蔵装置とする<br>・「センサー」の名前が曖昧(sound sensor/motion sensor など、より技術的な参照が必要)<br>・問題文で既に例示されたものを答えに書く<br>・「性能にどう影響するか」でクロック速度の増減の方向を書かない<br>
+<span class="src">0478 ER Jun 2026 P11 / P12 / Mar 2024 P12</span></td>
+<td>・FDE は「各ステップで何がどこへ送られるか」を図とアニメで確認 → 文章で書かせる<br>・センサーは「何を測る/何が起きたら何をする」の3点で書かせる<br>・問題文の例示と重複しないことを、解答前の確認項目にする</td></tr>
+<tr><td><strong>4 Software</strong><br><span class="tag t0478">P1</span></td><td>OS の機能、translator(compiler/interpreter/assembler)、IDE</td>
+<td>・欠けたメモリ(missing memory)を特定しながら、2つ目の機能を「ユーザー管理」とする<br>・「コードは2進数に変換される」だけで、high-level language に触れない<br>・問題文で既に与えられた translator を答えにする<br>・IDE の機能の説明に必要な技術的要素が欠ける(例:auto-correct は「コードのエラーを直す」と書く)<br>
+<span class="src">0478 ER Jun 2026 P11–13</span></td>
+<td>・translator は「入力 → 出力 → 実行のタイミング」の3点表で比較<br>・IDE の機能は「機能名 + それが何をするか + 何の役に立つか」</td></tr>
+<tr><td><strong>5 Internet</strong><br><span class="tag t0478">P1</span></td><td>URL と IP、web browser/server、cookie、デジタル証明書、セキュリティ</td>
+<td>・web server と web browser を取り違える<br>・デジタル証明書:証明書の要求と送信は書けるが、<strong>証明書の認証</strong>と<strong>データの暗号化</strong>が抜ける<br>
+<span class="src">0478 ER Jun 2026 P11–13</span>
+(URL → IP の理解は良好:<span class="src">Mar 2026 P12</span>)</td>
+<td>・TLS/証明書は「手順の図」を描かせ、各矢印に説明を書かせる(図には注釈が必要)</td></tr>
+<tr><td><strong>6 Automated &amp; emerging technologies</strong><br><span class="tag t0478">P1</span></td><td>自動化、ロボット、AI、センサー、自動運転</td>
+<td>・「検索エンジンで機械学習がどう使われるか」に、一般的な ML の説明だけを書く<br>
+<span class="src">0478 ER Mar 2025 P12</span><br>
+(self-driving tractor のセンサーの用途など、context 付きの答えは改善:<span class="src">Mar 2024 P12</span>)</td>
+<td>・毎週「新しいシナリオ + 同じ知識」で書かせる(例:tractor → 倉庫ロボット → 病院)</td></tr>
+<tr><td><strong>7 Algorithm design</strong><br><span class="tag t0478">P2</span></td><td>開発ライフサイクル、flowchart、trace table、アルゴリズムのエラー発見・訂正</td>
+<td>・flowchart の矢印に矢じりがない/全ての経路が STOP で終わらない/条件とループを使わず巨大になる<br>・flowchart の問いにアルゴリズムの観点で答える<br>・正しい flowchart 記号を使わない、trace table が弱い<br>
+<span class="src">0478 ER Jun 2026 P21–23 / Jun 2024 P21</span>
+(アルゴリズムのエラー発見・訂正は良好:<span class="src">Jun 2026 P22–23</span>)</td>
+<td>・trace table は毎週1問。列の見出しを自分で書く練習<br>・flowchart 記号表を暗記ではなく「描いて使う」</td></tr>
+<tr><td><strong>8 Programming</strong><br><span class="tag t0478">P2</span></td><td>変数・配列・ループ・selection・library routines・file handling・15点シナリオ</td>
+<td>・REAL を FLOAT と書く/「≠」を != と書く(正しくは &lt;&gt;)/ &gt;= を =&gt; と書く<br>・DIV と MOD を library routine とする<br>・配列の最後のインデックスを 49 や 51 とする(要素は50個)<br>・UCASE・SUBSTRING の結果を変数に代入しない<br>・ファイル名の引用符が抜ける/CLOSE と書く(正しくは CLOSEFILE)/WRITEFILE に変数名がない<br>・FOR ループが「繰り返し回数が決まっている」ことを書かない<br>・関数の RETURN が抜ける<br>・short-answer で Python を書く(許されるのは15点問題のみ)<br>
+<span class="src">0478 ER Jun 2026 P21–23, Jun 2025 P22–23</span></td>
+<td>・CIE pseudocode の「構文チェックリスト」を全員に配り、答案提出前に自分で採点(<a href="06_exam_technique_ja.html">06</a>)<br>・毎週、紙で pseudocode を書く時間を確保<br>・0478 Topical practice papers(Ch8)を使う</td></tr>
+<tr><td><strong>9 Databases</strong><br><span class="tag t0478">P2</span></td><td>テーブル、主キー、データ型、SQL(SELECT/FROM/WHERE/ORDER BY…)</td>
+<td>・TelephoneNumber を Integer にする(「+」で始まるため不可)/database のデータ型と programming のデータ型を混同<br>・主キーを理解していない、MemberName を主キーとする<br>・SQL:WHERE に単位(metres)を書く、数値に引用符、比較演算子 =&gt; <br>
+<span class="src">0478 ER Jun 2026 P21</span></td>
+<td>・「なぜその型か」を理由付きで書かせる(例:先頭の0や+を保持するため)<br>・SQL も紙で書く。0478 Topical practice papers(Ch9)</td></tr>
+<tr><td><strong>10 Boolean logic</strong><br><span class="tag t0478">P2</span></td><td>論理ゲート、論理回路、真理値表</td>
+<td>・全体では高い正答率(Examiner が良好と評価)<br>・一部の候補者が回路の出力を判定できない<br>
+<span class="src">0478 ER Jun 2026 P21–23</span></td>
+<td>・確実に取れる領域。毎週5分の小テストで満点を維持する。0478 Topical practice papers(Ch10)</td></tr>
+</table></div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>⭐ 4. Paper 2 の15点シナリオ問題を攻略する</h2>
+<p class="sub">Paper 2 の最終問題。<strong>未見のシナリオ、15点、目安30分、pseudocode または Python / Visual Basic / Java で解答可</strong>(0478 シラバス)。AO2 を最も多く含み、最も点差がつく。</p>
+<div class="grid">
+<div class="card"><h3>解答の手順(Examiner Report に基づく)</h3>
+<ul class="bl">
+<li><strong>最後まで読んでから書く。</strong><span class="src">0478 ER Mar 2024 / Mar 2025 / Jun 2025 / Jun 2026 P22</span></li>
+<li><strong>変数・配列が「宣言不要」と書いてあれば宣言しない。</strong>書いてあれば宣言する。</li>
+<li><strong>シナリオで指定された変数・配列を、指定どおりに使う。</strong>初期化が必要なら初期化する。</li>
+<li><strong>すぐに本体を書く。</strong>与えられたタスクに集中する。</li>
+<li><strong>コメントを書く。</strong>各部分が何をしているかを示す。<span class="src">0478 ER Jun 2026 P22</span></li>
+<li>使える言語は pseudocode / Python / Visual Basic / Java のみ。</li>
+</ul></div>
+<div class="card"><h3>訓練の進め方</h3>
+<ul class="bl">
+<li><strong>G10 前半:</strong>短い問題で部品(入力、ループ、配列、条件、出力)を別々に練習。</li>
+<li><strong>G10 中盤:</strong>過去問の15点問題を毎月1題、制限30分で。</li>
+<li><strong>採点:</strong>mark scheme で自己採点 → 「読み落とし」「構文」「ロジック」に分類。</li>
+<li><strong>復習:</strong>同じ種類の誤りが出たら、構文チェックリストにその項目を追加。</li>
+</ul></div>
+</div>
+<div class="box warn"><strong>落とし穴:</strong> 「ロジックは合っているが、指定された変数名を使っていない」「出力の条件を見落とす」ことで点を落とす。
+Examiner はシナリオに<em>正確に従う</em>ことを毎回強調している。</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🧠 5. G9 内容を G10 まで保持させる</h2>
+<p class="sub">Paper 1(Topics 1–6)は G9 で学び終え、試験は約1年後。忘却を前提にした設計が必要。</p>
+<ul class="bl">
+<li><strong>毎週の40分の授業の前半10分:</strong>G9 トピックからランダムに2問の復習(前週・先月・昨年のトピックを混ぜる)。</li>
+<li><strong>学期末:</strong>G9 全 Topic から30点の mini test。結果をトピック別に記録する。</li>
+<li><strong>G10 後半:</strong>Paper 1 過去問を月1回実施し、command word・context の失点を分類する。</li>
+<li>0478 の過去問は <code>My Drive/Past papers/Past papers/0478 Computer Science - IGCSE/</code> に年度別に保管されている。</li>
+</ul>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🧰 6. 使える既存教材</h2>
+<div class="grid">
+<div class="card"><h3>G10CS</h3><ul class="bl"><li>Revision Guide(章ごとのタブ、クイズ)</li><li>Ch7–Ch10 のワークシート・スライド</li><li>0478 Topical practice papers:Chapter 8(Programming)、9(Databases)、10(Boolean logic)— Paper 2 の過去問を章別に集約</li></ul></div>
+<div class="card"><h3>全学年共通</h3><ul class="bl"><li>CS Study Guide (All Grades)(g9・g10)</li><li>NotebookLM Content</li><li>Pseudocode_basic(G10CS)</li></ul></div>
+<div class="card"><h3>これから作ると効果的なもの</h3><ul class="bl"><li>Paper 1 向けの Topical practice papers(Topics 1–6)。Chapter 8–10 と同じ手順で作成可能</li><li>CIE pseudocode 構文チェックリスト(06ページ)</li></ul></div>
+</div>
+</section>
+
+<div class="pager"><a href="01_astar_blueprint_ja.html">← 01 A*の設計図</a><a href="03_as_9618_ja.html">03 AS →</a></div>
+<footer>IGCSE 0478 / Cambridge International AS &amp; A Level 9618 — 教員専用ガイド。根拠はCambridge公式のシラバス・Examiner Report・Example Candidate Responses。</footer>
+</body>
+</html>

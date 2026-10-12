@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="color-scheme" content="light"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex"/>
+<title>CS Teaching Guide — A* の設計図</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#f5f7fa;--surface:#fff;--surface2:#eef1f6;--accent:#3b5bdb;--c0478:#0ca678;--cas:#3b5bdb;--ca2:#7c3aed;--warn:#d97706;--bad:#e03572;--text:#1a1a2e;--muted:#5c6880;--border:#dce1ec;--info-bg:#eef2ff;--info-bd:#c5d0f8;--warn-bg:#fff7ed;--warn-bd:#fed7aa;--warn-tx:#7c3003;--good-bg:#dcfce7;--good-bd:#bbf7d0;--good-tx:#14532d;--hero:linear-gradient(155deg,#eef2ff,#f5f7fa 60%,#dcfce7);--nav:rgba(245,247,250,.95);}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{overflow-wrap:anywhere;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+nav{position:sticky;top:0;z-index:100;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.nav-brand{font-weight:800;font-size:.95rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:.9rem;flex-wrap:wrap;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.78rem;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700;}
+.hero{padding:3.2rem 1rem 2.2rem;background:var(--hero);text-align:center;}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--c0478);display:inline-block;margin-bottom:.7rem;border:1px solid var(--good-bd);background:var(--surface);padding:.25rem .9rem;border-radius:2rem;}
+h1{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;line-height:1.3;margin-bottom:.8rem;}
+.lead{color:var(--muted);max-width:720px;margin:0 auto;font-size:.97rem;}
+.sec{max-width:1060px;margin:0 auto;padding:2.4rem 1rem;}
+.sec h2{font-size:1.45rem;font-weight:800;margin-bottom:.4rem;}
+.sec h3{font-size:1.05rem;font-weight:800;margin:1.4rem 0 .5rem;}
+.sub{color:var(--muted);margin-bottom:1.4rem;font-size:.9rem;}
+.divider{height:1px;background:var(--border);margin:0 1rem;}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;padding:1.3rem;margin-bottom:1rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+.grid .card{margin-bottom:0;}
+.box{border-radius:.8rem;padding:1rem 1.2rem;font-size:.9rem;margin:1rem 0;border:1.5px solid;}
+.info{background:var(--info-bg);border-color:var(--info-bd);}
+.warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-tx);}
+.good{background:var(--good-bg);border-color:var(--good-bd);color:var(--good-tx);}
+.box strong{font-weight:800;}
+ul.bl{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin:.4rem 0;}
+ul.bl li{position:relative;padding-left:1.1rem;font-size:.9rem;color:var(--muted);}
+ul.bl li::before{content:'▸';color:var(--accent);position:absolute;left:0;}
+ul.bl li strong{color:var(--text);}
+.tbl-wrap{overflow-x:auto;background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;margin:1rem 0;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px;}
+th{text-align:left;padding:.65rem .85rem;color:var(--accent);border-bottom:2px solid var(--border);background:var(--surface2);white-space:nowrap;}
+td{padding:.65rem .85rem;border-bottom:1px solid var(--border);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.tag{display:inline-block;font-size:.7rem;font-weight:800;padding:.1rem .6rem;border-radius:2rem;color:#fff;vertical-align:middle;}
+.t0478{background:var(--c0478);color:#06281f;} .tas{background:var(--cas);color:#fff;} .ta2{background:var(--ca2);color:#fff;}
+.src{font-size:.74rem;color:var(--muted);font-style:italic;}
+.neg{color:var(--bad);font-weight:700;} .pos{color:var(--c0478);font-weight:700;}
+.bar{display:flex;height:30px;border-radius:.6rem;overflow:hidden;border:1.5px solid var(--border);margin:.5rem 0 .2rem;font-size:.75rem;font-weight:700;color:#fff;}
+.bar span{display:flex;align-items:center;justify-content:center;min-width:2rem;}
+.pager{max-width:1060px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.pager a{padding:.6rem 1.1rem;border:1.5px solid var(--border);border-radius:.7rem;text-decoration:none;color:var(--accent);background:var(--surface);font-size:.88rem;font-weight:700;}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:2rem 1rem;}
+code{background:var(--surface2);padding:.05rem .4rem;border-radius:.3rem;font-size:.85em;}
+@media(max-width:600px){.hero{padding:2.4rem 1rem 1.6rem;}.sec{padding:1.8rem 1rem;}}
+</style>
+</head>
+<body>
+<nav><a class="nav-brand" href="index.html">💻 CS Teaching Guide</a><div class="nav-links"><a href="index.html">ホーム</a><a href="00_diagnosis_ja.html">00 現状診断</a><a href="01_astar_blueprint_ja.html" class=active>01 A*の設計図</a><a href="02_igcse_0478_ja.html">02 IGCSE</a><a href="03_as_9618_ja.html">03 AS</a><a href="04_a2_9618_ja.html">04 A2</a><a href="05_lesson_design_ja.html">05 授業設計</a><a href="06_exam_technique_ja.html">06 試験技術</a><a href="07_programming_path_ja.html">07 プログラミング</a><a href="08_assessment_ja.html">08 評価</a></div></nav>
+<header class="hero"><span class="eyebrow">01 ・ 配点から逆算する</span><h1>A* の設計図</h1><p class="lead">どこで点を取れば A* に届くか。シラバスの配点と Examiner Report の指摘から、A* を取る答案の習慣を整理する。</p></header>
+
+<section class="sec">
+<h2>🧭 1. 評価観点(AO)の配点を知る</h2>
+<p class="sub">A* に必要なのは、配点の重い AO で確実に点を取ること。シラバスの数値を整理する。</p>
+<h3><span class="tag t0478">IGCSE 0478</span> 試験構成</h3>
+<div class="tbl-wrap"><table>
+<tr><th>試験</th><th>内容</th><th>時間・配点</th><th>グレードへの比重</th><th>AO1 / AO2 / AO3</th></tr>
+<tr><td>Paper 1</td><td>Computer Systems(Topics 1–6)</td><td>1h45・75点</td><td>50%</td><td>60 / 20 / 20</td></tr>
+<tr><td>Paper 2</td><td>Algorithms, Programming and Logic(Topics 7–10)。最終問題は15点の未見シナリオ(目安30分)</td><td>1h45・75点</td><td>50%</td><td>20 / <strong>60</strong> / 20</td></tr>
+</table></div>
+<p class="src">全体(IGCSE):AO1 40% / AO2 40% / AO3 20%。電卓不可。出典:0478 シラバス 2026–2028。</p>
+
+<h3><span class="tag tas">AS</span> <span class="tag ta2">A Level</span> 9618 試験構成</h3>
+<div class="tbl-wrap"><table>
+<tr><th>試験</th><th>内容</th><th>時間・配点</th><th>AS / A Level への比重</th><th>AO1 / AO2 / AO3</th></tr>
+<tr><td>Paper 1</td><td>Theory Fundamentals(Sec.1–8)</td><td>1h30・75点</td><td>AS 50% / A 25%</td><td>60 / 40 / 0</td></tr>
+<tr><td>Paper 2</td><td>Fundamental Problem-solving and Programming Skills(Sec.9–12)。pseudocode で解答</td><td>2h・75点</td><td>AS 50% / A 25%</td><td>0 / 40 / <strong>60</strong></td></tr>
+<tr><td>Paper 3</td><td>Advanced Theory(Sec.13–20)</td><td>1h30・75点</td><td>A 25%</td><td>60 / 40 / 0</td></tr>
+<tr><td>Paper 4</td><td>Practical(Sec.19–20)。Java / VB / Python、インターネットなしでPC上で解答</td><td>2h30・75点</td><td>A 25%</td><td>0 / 0 / <strong>100</strong></td></tr>
+</table></div>
+<p class="src">全体(AS):AO1 30% / AO2 40% / AO3 30%。全体(A Level):AO1 30% / AO2 30% / AO3 40%。出典:9618 シラバス 2026。</p>
+
+<div class="box good"><strong>A Level の重要な事実:</strong>
+AO3(40%)は <strong>P2(25%×60% = 15%)と P4(25%×100% = 25%)だけ</strong>で構成される。つまり A Level の最重要の観点は、
+<strong>プログラミングと問題解決の2つの試験(合計 50%)</strong>にある。理論(P1・P3)で満点近くを取っても、P2・P4 が弱いと A* には届きにくい。</div>
+<div class="box info"><strong>IGCSE も同じ構造:</strong> P2 の AO2 が60%(アルゴリズムの設計・適用)。
+15点シナリオは P2 の20%にあたり、<strong>最も点差がつく1問</strong>。</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>⭐ 2. A* を取る答案の6つの習慣(Examiner Report が示すもの)</h2>
+<p class="sub">各項目は、Examiner Report が高得点の条件、または失点の原因として繰り返し挙げている点(出典付き)。</p>
+<div class="grid">
+<div class="card"><h3>① context に結びつけて書く</h3><p class="sub">シナリオの名詞(sensors の種類、tractor、search engine など)を答えに入れる。</p>
+<span class="src">0478 ER Mar 2024 P12 / Mar 2025 P12 / Jun 2026 P11–13 / 9618 ER Jun 2025 P31</span></div>
+<div class="card"><h3>② command word と点数に答えを合わせる</h3><p class="sub">explain は「どのように/なぜ」まで。点数分の異なるポイントを書く(同じ内容の言い換えは1点)。</p>
+<span class="src">0478 ER Jun 2025 P22–23 / 9618 ER Jun 2025 P11–13, P31–33</span></div>
+<div class="card"><h3>③ 専門用語を正確に使う</h3><p class="sub">日常語ではなく、syllabus の用語で。「computer が instruction を execute する」のように動詞も正確に。</p>
+<span class="src">0478 ER Jun 2026 P11 / Mar 2026 P12 / 9618 ER Jun 2025 P11–13</span></div>
+<div class="card"><h3>④ pseudocode は CIE 形式で完全に書く</h3><p class="sub">END 系の文、file mode、CLOSEFILE のファイル名、予約語を避ける。変数宣言・初期化も書く。</p>
+<span class="src">9618 ER Jun 2025 P22–23 / 0478 ER Jun 2025 P22–23</span></div>
+<div class="card"><h3>⑤ 書く前に設計する</h3><p class="sub">ループの種類、引数、データ型、IF か CASE かを先に決める。シナリオは最後まで読む。</p>
+<span class="src">9618 ER Jun 2025 P23 / 0478 ER Mar 2024 P22</span></div>
+<div class="card"><h3>⑥ 作業を見せる</h3><p class="sub">計算問題は working を書く(部分点が出る)。trace table は途中の値を省略しない。</p>
+<span class="src">9618 ER Jun 2025 P31–33, P31 Q2(b)</span></div>
+</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🔬 3. A* と A を分ける要素</h2>
+<div class="tbl-wrap"><table>
+<tr><th>観点</th><th>A 止まりの答案</th><th>A* の答案</th></tr>
+<tr><td>理論(P1/P3)</td><td>正しいが generic。点数より少ない数のポイント</td><td>context に結びつけ、点数分の<strong>独立した</strong>ポイントを書く</td></tr>
+<tr><td>pseudocode(P2)</td><td>ロジックは正しいが END 文・file handling に1–2箇所の誤り</td><td>構文ミスがゼロ。設計(ループ・型・引数)が先に決まっている</td></tr>
+<tr><td>P4 実技</td><td>プログラムは動くが、evidence document の体裁やテストが不完全</td><td>全 input/output のスクリーンショット、indentation 維持、header 記載、各小問の正しい位置</td></tr>
+<tr><td>0478 15点問題</td><td>題意の一部を実装</td><td>scenario の全項目を満たし、与えられた変数を使い、コメントを書く</td></tr>
+<tr><td>用語</td><td>日常語を混ぜる</td><td>syllabus の用語と動詞を正確に使う</td></tr>
+</table></div>
+<div class="box warn"><strong>grade threshold(合格点・A*の点数)について:</strong>
+A*/A の境界点はシリーズごとに Cambridge が公開する grade threshold で決まる。このガイドには特定の値を載せていない。
+目標点数を決める場合は、直近シリーズの公式 grade threshold を確認して差し込むこと。</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🗓 4. A* までの積み上げ(G9 → G12)</h2>
+<div class="tbl-wrap"><table>
+<tr><th>学年</th><th>この学年で作る力</th><th>A* への貢献</th></tr>
+<tr><td><span class="tag t0478">G9</span></td><td>技術用語の語彙/2進・16進/pseudocode の基礎文法(CIE 形式)/command word の初歩</td><td>用語と構文の「癖」を最初に正しく作る</td></tr>
+<tr><td><span class="tag t0478">G10</span></td><td>trace table・flowchart・データベース・論理回路/15点シナリオ/過去問演習</td><td>0478 P2 の AO2 60%を確保</td></tr>
+<tr><td><span class="tag tas">G11</span></td><td>Sec.1–12 の理論と、P2 の問題解決(file handling、2D array、structured design)</td><td>AS の P2(AO3 60%)と、A2 に向けた基礎</td></tr>
+<tr><td><span class="tag ta2">G12</span></td><td>Sec.13–20 の発展理論と、P4 実技(OOP、ADT、再帰、例外処理、evidence document)</td><td>A Level の AO3(P4 100%)</td></tr>
+</table></div>
+<p class="sub">詳細なペーシング・トピック別の指導は <a href="02_igcse_0478_ja.html">02</a>・<a href="03_as_9618_ja.html">03</a>・<a href="04_a2_9618_ja.html">04</a> に続きます。</p>
+</section>
+
+<div class="pager"><a href="00_diagnosis_ja.html">← 00 現状診断</a><a href="02_igcse_0478_ja.html">02 IGCSE →</a></div>
+<footer>IGCSE 0478 / Cambridge International AS &amp; A Level 9618 — 教員専用ガイド。根拠はCambridge公式のシラバス・Examiner Report・Example Candidate Responses。</footer>
+</body>
+</html>

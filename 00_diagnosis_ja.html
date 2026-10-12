@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="color-scheme" content="light"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex"/>
+<title>CS Teaching Guide — 現状診断と改善戦略</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#f5f7fa;--surface:#fff;--surface2:#eef1f6;--accent:#3b5bdb;--c0478:#0ca678;--cas:#3b5bdb;--ca2:#7c3aed;--warn:#d97706;--bad:#e03572;--text:#1a1a2e;--muted:#5c6880;--border:#dce1ec;--info-bg:#eef2ff;--info-bd:#c5d0f8;--warn-bg:#fff7ed;--warn-bd:#fed7aa;--warn-tx:#7c3003;--good-bg:#dcfce7;--good-bd:#bbf7d0;--good-tx:#14532d;--hero:linear-gradient(155deg,#eef2ff,#f5f7fa 60%,#dcfce7);--nav:rgba(245,247,250,.95);}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{overflow-wrap:anywhere;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+nav{position:sticky;top:0;z-index:100;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.6rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.nav-brand{font-weight:800;font-size:.95rem;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:.9rem;flex-wrap:wrap;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.78rem;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);font-weight:700;}
+.hero{padding:3.2rem 1rem 2.2rem;background:var(--hero);text-align:center;}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--c0478);display:inline-block;margin-bottom:.7rem;border:1px solid var(--good-bd);background:var(--surface);padding:.25rem .9rem;border-radius:2rem;}
+h1{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;line-height:1.3;margin-bottom:.8rem;}
+.lead{color:var(--muted);max-width:720px;margin:0 auto;font-size:.97rem;}
+.sec{max-width:1060px;margin:0 auto;padding:2.4rem 1rem;}
+.sec h2{font-size:1.45rem;font-weight:800;margin-bottom:.4rem;}
+.sec h3{font-size:1.05rem;font-weight:800;margin:1.4rem 0 .5rem;}
+.sub{color:var(--muted);margin-bottom:1.4rem;font-size:.9rem;}
+.divider{height:1px;background:var(--border);margin:0 1rem;}
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;padding:1.3rem;margin-bottom:1rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+.grid .card{margin-bottom:0;}
+.box{border-radius:.8rem;padding:1rem 1.2rem;font-size:.9rem;margin:1rem 0;border:1.5px solid;}
+.info{background:var(--info-bg);border-color:var(--info-bd);}
+.warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-tx);}
+.good{background:var(--good-bg);border-color:var(--good-bd);color:var(--good-tx);}
+.box strong{font-weight:800;}
+ul.bl{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin:.4rem 0;}
+ul.bl li{position:relative;padding-left:1.1rem;font-size:.9rem;color:var(--muted);}
+ul.bl li::before{content:'▸';color:var(--accent);position:absolute;left:0;}
+ul.bl li strong{color:var(--text);}
+.tbl-wrap{overflow-x:auto;background:var(--surface);border:1.5px solid var(--border);border-radius:1rem;margin:1rem 0;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:560px;}
+th{text-align:left;padding:.65rem .85rem;color:var(--accent);border-bottom:2px solid var(--border);background:var(--surface2);white-space:nowrap;}
+td{padding:.65rem .85rem;border-bottom:1px solid var(--border);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.tag{display:inline-block;font-size:.7rem;font-weight:800;padding:.1rem .6rem;border-radius:2rem;color:#fff;vertical-align:middle;}
+.t0478{background:var(--c0478);color:#06281f;} .tas{background:var(--cas);color:#fff;} .ta2{background:var(--ca2);color:#fff;}
+.src{font-size:.74rem;color:var(--muted);font-style:italic;}
+.neg{color:var(--bad);font-weight:700;} .pos{color:var(--c0478);font-weight:700;}
+.bar{display:flex;height:30px;border-radius:.6rem;overflow:hidden;border:1.5px solid var(--border);margin:.5rem 0 .2rem;font-size:.75rem;font-weight:700;color:#fff;}
+.bar span{display:flex;align-items:center;justify-content:center;min-width:2rem;}
+.pager{max-width:1060px;margin:0 auto;padding:1rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.pager a{padding:.6rem 1.1rem;border:1.5px solid var(--border);border-radius:.7rem;text-decoration:none;color:var(--accent);background:var(--surface);font-size:.88rem;font-weight:700;}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:2rem 1rem;}
+code{background:var(--surface2);padding:.05rem .4rem;border-radius:.3rem;font-size:.85em;}
+@media(max-width:600px){.hero{padding:2.4rem 1rem 1.6rem;}.sec{padding:1.8rem 1rem;}}
+</style>
+</head>
+<body>
+<nav><a class="nav-brand" href="index.html">💻 CS Teaching Guide</a><div class="nav-links"><a href="index.html">ホーム</a><a href="00_diagnosis_ja.html" class=active>00 現状診断</a><a href="01_astar_blueprint_ja.html">01 A*の設計図</a><a href="02_igcse_0478_ja.html">02 IGCSE</a><a href="03_as_9618_ja.html">03 AS</a><a href="04_a2_9618_ja.html">04 A2</a><a href="05_lesson_design_ja.html">05 授業設計</a><a href="06_exam_technique_ja.html">06 試験技術</a><a href="07_programming_path_ja.html">07 プログラミング</a><a href="08_assessment_ja.html">08 評価</a></div></nav>
+<header class="hero"><span class="eyebrow">00 ・ 授業時間と失点の原因</span><h1>現状診断と改善戦略</h1><p class="lead">成績が伸びない原因を、授業時間と Examiner Report の2つの根拠から特定し、優先順位の高い打ち手を決める。</p></header>
+
+<section class="sec">
+<h2>⏱ 1. 授業時間 vs Cambridge 想定学習時間</h2>
+<p class="sub">Cambridge は IGCSE で約130時間、AS で約180時間、A Level 全体で約360時間の guided learning hours(GLH)を想定している(シラバス Guided learning hours)。</p>
+<div class="tbl-wrap"><table>
+<tr><th>コース</th><th>学年</th><th>週あたり</th><th>年間授業時間*</th><th>Cambridge想定</th><th>差</th></tr>
+<tr><td><span class="tag t0478">IGCSE 0478</span></td><td>G9 + G10</td><td>80分×2 + 40分 = 200分</td><td>約107h × 2年 = <strong>約213h</strong></td><td>約130h</td><td class="pos">+約83h(余裕)</td></tr>
+<tr><td><span class="tag tas">AS 9618</span></td><td>G11</td><td>80分×3 = 240分</td><td><strong>約128h</strong></td><td>約180h</td><td class="neg">−約52h(充足率71%)</td></tr>
+<tr><td><span class="tag ta2">A Level 後半</span></td><td>G12(5月の試験まで約26週)</td><td>80分×3 = 240分</td><td><strong>約104h</strong></td><td>約180h</td><td class="neg">−約76h(充足率58%)</td></tr>
+<tr><td><strong>AS + A2 合計</strong></td><td>G11–G12</td><td></td><td><strong>約232h</strong></td><td>約360h</td><td class="neg">−約128h(充足率64%)</td></tr>
+</table></div>
+<p class="src">* 年間32授業週で計算(休み・試験・行事を除いた仮定)。実際の週数に合わせて差し替えること。想定時間の出典:Cambridge 0478 / 9618 シラバス「Guided learning hours」。</p>
+<div class="box warn"><strong>示唆:</strong> IGCSE は時間に余裕があり、ここは「成績が悪い」原因を時間に求められない。
+一方、AS・A2 は構造的に時間が足りない。<strong>授業の進め方を変えない限り、同じ指導で成績は上がらない。</strong></div>
+<div class="box good"><strong>設計の基本方針:</strong>
+(1) IGCSE:余った約80時間を<em>過去問演習・プログラミング・command word の訓練</em>に使う。
+(2) AS・A2:授業は<em>つまずきの解消とフィードバック</em>に集中し、<em>初回の説明は事前学習(NotebookLM教材・Study Guide・動画)</em>に移す。</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🔍 2. 失点の4つの原因(Examiner Report より)</h2>
+<p class="sub">Cambridge の Principal Examiner が毎年繰り返し指摘しているパターンを4つに分類した。</p>
+
+<div class="card"><h3>原因① 問われたことに答えていない(読解・context・command word)</h3>
+<ul class="bl">
+<li><strong>generic な答え:</strong>シナリオが与えられているのに一般論で答える。「machine learning が検索エンジンでどう使われるか」の問いに、一般的な ML の説明だけを書く。
+<span class="src">0478 ER Mar 2025 P12 / 0478 ER Jun 2026 P11–13</span></li>
+<li><strong>command word の不一致:</strong>explain に対して describe 止まり。explain は「どのように」まで必要。
+<span class="src">0478 ER Jun 2025 P22 / Jun 2026 P22–23 / 9618 ER Jun 2025 P31–33</span></li>
+<li><strong>除外された答えを書く:</strong>「memory management 以外の OS タスクを2つ」で memory management を書く。例示された名前(password)の言い換え(PIN)は不可。
+<span class="src">9618 ER Jun 2025 P11–13</span></li>
+<li><strong>同じ内容を言い換えて2点取ろうとする:</strong>表現が違っても意味が同じなら1点。
+<span class="src">9618 ER Jun 2025 P11–13, Nov 2025 P11–13</span></li>
+<li><strong>問いの中身を取り違える:</strong>input device を問われて output device を答える。目的/特徴/利点の違いを区別しない。
+<span class="src">0478 ER Mar 2024 P12 / Mar 2025 P12 / Mar 2026 P12</span></li>
+</ul></div>
+
+<div class="card"><h3>原因② 専門用語と正確さの不足(technical language)</h3>
+<ul class="bl">
+<li>0478 Paper 1 は <strong>2024年6月から2026年6月まで、ほぼ毎回</strong>「technical terminology をもっと使うこと」が Key message の筆頭。
+<span class="src">0478 ER Jun 2024 / Nov 2024 / Jun 2025 / Jun 2026 P11–13</span></li>
+<li>プロセスの説明が不正確:例)fetch-decode-execute で、メモリ上の「アドレス」と「命令そのもの」を混同し、MDR を最初のレジスタとする。
+<span class="src">0478 ER Jun 2026 P11 Q2</span></li>
+<li>「computer が instructions を execute する」ではなく「understand する」と書く等、技術的に不正確な表現。
+<span class="src">0478 ER Mar 2026 P12</span></li>
+<li>繰り返される誤概念:16進数は少ないメモリで保存できる/2進数で表せる最小の整数は1/actuator がモニターの表示を変える/1 KiB = 1000 bytes。
+<span class="src">0478 ER Mar 2024 P12, Mar 2025 P12, Jun 2026 P11 Q1(b)</span></li>
+<li>9618 P3:packet switching と circuit switching の混同、interpreter の説明に compile の内容を書く、浮動小数点の exponent ミス。
+<span class="src">9618 ER Jun 2025 P31 Q2(a), Q3(b), Q6</span></li>
+</ul></div>
+
+<div class="card"><h3>原因③ pseudocode・プログラミングの細部のミス(最も点を落とす)</h3>
+<ul class="bl">
+<li><strong>CIE pseudocode の構文を知らない:</strong>IF の ENDIF 欠落/WHILE の ENDWHILE 欠落/procedure の END 欠落。
+<span class="src">9618 ER Jun 2025 P22 Q7, Q5(b)</span></li>
+<li><strong>file handling の誤り:</strong>OPENFILE の mode 違い、CLOSEFILE や EOF() にファイル名がない。
+<span class="src">9618 ER Jun 2025 P22 Q5(b) / P23</span></li>
+<li><strong>予約語を変数名に使う</strong>(String、LENGTH、MONTH、TODAY)。2D array の添字の書き方の誤り。
+<span class="src">9618 ER Jun 2025 P22 / P23</span></li>
+<li><strong>設計を飛ばしてすぐコードを書く:</strong>count-controlled か conditional loop か、IF の連続か CASE か、関数の引数は何か、を決めていない。
+<span class="src">9618 ER Jun 2025 P23 Key messages</span></li>
+<li><strong>「State a value」に変数名を書く</strong>(BonusPay など)。テストデータの条件(rubric)を読まない。
+<span class="src">9618 ER Jun 2025 P21 Q2(b)(i), Q6(a)</span></li>
+<li><strong>0478 P2:</strong>short-answer に Python を書く(許されるのは15点のシナリオ問題だけ)/syllabus の pseudocode と違う形で書く/flowchart の記号の誤用/trace table が弱い。
+<span class="src">0478 ER Jun 2024 P21, Jun 2026 P21–23</span></li>
+<li><strong>0478 15点シナリオ:</strong>scenario を最後まで読まずに書き始める、与えられた変数・配列を使わない(宣言不要と書いてあるのに宣言する)、コメントが少ない。
+<span class="src">0478 ER Mar 2024, Jun 2025, Jun 2026 P22</span></li>
+<li><strong>9618 P4:</strong>evidence document の体裁(白地に黒字、色付き文字なし、indentation 維持、全 input/output が見えるスクリーンショット、header に centre/candidate number)。
+<span class="src">9618 ER Jun 2025 P41–43</span></li>
+</ul></div>
+
+<div class="card"><h3>原因④ 時間不足(AS・A2)</h3>
+<p class="sub">上の表のとおり、AS は約52h、A2 は約76h、授業時間が想定を下回る。さらに A2 は P4(2h30の実技)の練習時間が授業内に確保されにくい。</p>
+<ul class="bl">
+<li>授業内で「初回説明」をすると、演習・フィードバックの時間が消える。</li>
+<li>過去問演習が試験直前に集中し、弱点が分かってから直す時間がない。</li>
+</ul></div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🎯 3. 原因ごとの打ち手(優先度順)</h2>
+<div class="tbl-wrap"><table>
+<tr><th>#</th><th>打ち手</th><th>効く原因</th><th>主に取り戻す試験</th><th>詳細</th></tr>
+<tr><td>1</td><td><strong>全授業の最後5分に「1問ミニ試験」</strong>(command word と context を必ず指定)</td><td>①②</td><td>0478 P1/P2, 9618 P1/P3</td><td><a href="05_lesson_design_ja.html">05</a>・<a href="06_exam_technique_ja.html">06</a></td></tr>
+<tr><td>2</td><td><strong>CIE pseudocode 「構文チェックリスト」</strong>を配布し、答案提出前に生徒が自己採点</td><td>③</td><td>0478 P2, 9618 P2, P3</td><td><a href="06_exam_technique_ja.html">06</a>・<a href="07_programming_path_ja.html">07</a></td></tr>
+<tr><td>3</td><td><strong>週1回、手書き/紙のプログラミング</strong>(PC なしで pseudocode と trace table)</td><td>③</td><td>0478 P2, 9618 P2</td><td><a href="07_programming_path_ja.html">07</a></td></tr>
+<tr><td>4</td><td><strong>誤概念リスト</strong>を単元の初めに提示し、生徒に「正誤」を判定させる</td><td>②</td><td>0478 P1, 9618 P1/P3</td><td>02・03・04</td></tr>
+<tr><td>5</td><td><strong>AS・A2 は事前学習(NotebookLM・Study Guide)を必須化</strong>し、授業を演習中心にする(flipped)</td><td>④</td><td>9618 全体</td><td><a href="05_lesson_design_ja.html">05</a></td></tr>
+<tr><td>6</td><td><strong>P4 は evidence document のひな型</strong>を使って毎回提出させる</td><td>③</td><td>9618 P4</td><td><a href="04_a2_9618_ja.html">04</a></td></tr>
+<tr><td>7</td><td><strong>0478 の余剰約80hを演習に配分</strong>(Topical practice papers を使用)</td><td>①②③</td><td>0478 P1/P2</td><td><a href="02_igcse_0478_ja.html">02</a></td></tr>
+</table></div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>📈 4. 追跡する指標(学期ごと)</h2>
+<p class="sub">「成績が上がったか」を学期末に判断できるよう、点数だけでなく失点の種類を記録する。</p>
+<ul class="bl">
+<li><strong>コンポーネント別の得点率</strong>(0478: P1/P2、9618: P1/P2/P3/P4)を mock ごとに記録し、前回との差を見る。</li>
+<li><strong>失点の分類:</strong>各失点を ①読解/context/command word ②用語・誤概念 ③構文/プログラミング ④未習 のどれかに分類する(上の4原因と同じ)。</li>
+<li><strong>pseudocode 構文ミス数</strong>(ENDIF/ENDWHILE/CLOSEFILE/予約語)を1答案あたりで数える。目標は継続的に減ること。</li>
+<li><strong>P4:</strong>evidence document の体裁チェック(全項目クリアの提出割合)。</li>
+</ul>
+<div class="box info"><strong>実データの差し込み欄:</strong> 直近の mock / MYE / 本試験のコンポーネント別得点が分かれば、
+ここに学年別の表を追加し、上の4原因のうちどれが最も点を失っているかを特定します。現時点では Examiner Report の一般傾向に基づく診断です。</div>
+</section>
+<div class="divider"></div>
+<section class="sec">
+<h2>🧾 5. 理事会への説明ポイント</h2>
+<ul class="bl">
+<li><strong>授業時間:</strong>AS・A2 は Cambridge 想定の64%(約232h / 約360h)。構造的な不足があり、授業設計の変更で補う。</li>
+<li><strong>失点の原因は特定可能:</strong>Examiner Report が毎年同じ4点を指摘しており、いずれも指導で改善できる。</li>
+<li><strong>改善策は計測できる:</strong>コンポーネント別得点と失点分類を学期ごとに記録し、前学期と比較する。</li>
+<li><strong>IGCSE は時間的余裕がある:</strong>約83hの余剰を試験演習に配分し、P2 の15点シナリオを重点強化する。</li>
+</ul>
+</section>
+
+<div class="pager"><a href="index.html">← ホーム</a><a href="01_astar_blueprint_ja.html">01 A*の設計図 →</a></div>
+<footer>IGCSE 0478 / Cambridge International AS &amp; A Level 9618 — 教員専用ガイド。根拠はCambridge公式のシラバス・Examiner Report・Example Candidate Responses。</footer>
+</body>
+</html>
